@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="updated Reedme">
+    <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="" />
+    <list id="c66bbc84-2128-4572-926b-df1100505a08" name="Working on npc logic" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blit.py" beforeDir="false" afterPath="$PROJECT_DIR$/blit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zones.py" beforeDir="false" afterPath="$PROJECT_DIR$/zones.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +32,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
@@ -75,6 +73,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="" />
+      <changelist id="c66bbc84-2128-4572-926b-df1100505a08" name="Working on npc logic" comment="" />
       <created>1589731228498</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -87,49 +86,79 @@
       <option name="project" value="LOCAL" />
       <updated>1593203555046</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="updated Reedme">
+      <created>1593212143436</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1593212143436</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Working on npc logic">
+      <created>1593212209391</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1593212209391</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="updated Reedme" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated Reedme" />
+    <MESSAGE value="Working on npc logic for taking a turn." />
+    <MESSAGE value="Working on npc logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working on npc logic" />
   </component>
   <component name="WindowStateProjectService">
     <state x="243" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1589744631559">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="243" y="326" key="#com.intellij.fileTypes.FileTypeChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1589744631559" />
-    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2" timestamp="1593212137414">
+    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2" timestamp="1593212209053">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212137414" />
+    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212209053" />
     <state x="279" y="278" key="FileChooserDialogImpl" timestamp="1592248402223">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="279" y="278" key="FileChooserDialogImpl/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1592248402223" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593211895461">
+    <state x="320" y="424" key="GitRewordDialog" timestamp="1593212252903">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="320" y="424" key="GitRewordDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212252903" />
+    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593212265577">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593211895461" />
-    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593211895461">
+    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212265577" />
+    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593212265577">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593211895461" />
-    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593211895461">
+    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212265577" />
+    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593212265577">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593211895461" />
-    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593211895461">
+    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212265577" />
+    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593212265577">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593211895461" />
+    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212265577" />
     <state width="816" height="333" key="GridCell.Tab.1.bottom" timestamp="1593114610023">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
@@ -155,6 +184,10 @@
     </state>
     <state x="-1680" y="193" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1591973667476" />
     <state x="0" y="166" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1592146389881" />
+    <state x="327" y="439" key="VCS.ChangelistChooser" timestamp="1593212237592">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="327" y="439" key="VCS.ChangelistChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212237592" />
     <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593208728286">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
