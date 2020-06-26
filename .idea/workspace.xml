@@ -22,6 +22,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1c2egltuMjpPvcJBXAZ6oTmilC8" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -188,25 +189,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="327" y="439" key="VCS.ChangelistChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212237592" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593208728286">
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593212561743">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593208728286" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593203264530" />
-    <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593203237543">
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212561743" />
+    <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593212578857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593203237543" />
-    <state x="953" y="0" width="974" height="1047" key="dock-window-1" timestamp="1593209289827">
+    <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212578857" />
+    <state x="953" y="0" width="974" height="1047" key="dock-window-1" timestamp="1593212578889">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-7" y="0" width="974" height="1047" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593105231804" />
-    <state x="953" y="0" width="974" height="1047" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593209289827" />
-    <state x="-847" y="32" width="854" height="1017" key="dock-window-2" timestamp="1593210888101">
+    <state x="953" y="0" width="974" height="1047" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212578889" />
+    <state x="-847" y="32" width="854" height="1017" key="dock-window-2" timestamp="1593212578889">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="953" y="0" width="974" height="1047" key="dock-window-2/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593184669359" />
-    <state x="-847" y="32" width="854" height="1017" key="dock-window-2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593210888101" />
+    <state x="-847" y="32" width="854" height="1017" key="dock-window-2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212578889" />
     <state x="-7" y="0" width="974" height="1047" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1590174665049" />
     <state x="-7" y="0" width="974" height="1047" key="dock-window-3" timestamp="1593185883221">
       <screen x="0" y="0" width="1920" height="1040" />
