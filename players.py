@@ -49,7 +49,7 @@ class Player:
         self.current_phase = None
 
         # attributes for mana management.
-        self.charged_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0, "Water": 0}
+        self.available_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0, "Water": 0}
         self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0, "Water": 0}
         # keeps track of how much mana is floating for a player.
         # when a card in the manazone is clicked "tapped" the card charges mana for the player to use.
@@ -58,6 +58,9 @@ class Player:
 
         self.target_card = None  # Target an enemy card
         self.selected_card = None  # select own card.
+
+        # check if player chaged this turn.
+        self.if_charged_mana = False
 
     def shuffle_deck(self):
         return random.shuffle(self.deck_list)
@@ -109,7 +112,7 @@ class Player:
     def put_card_in_mana_zone(self):
         try:
             print(f"put {self.picked_up_card.name} into mana zone")
-            self.charged_mana[self.picked_up_card.civilization] += 1
+            self.available_mana[self.picked_up_card.civilization] += 1
             self.picked_up_card.is_picked_up = False
             self.picked_up_card.is_in_mana_zone()
             self.picked_up_card.pos_index = len(self.cards_in_mana_zone)
@@ -117,6 +120,7 @@ class Player:
             self.cards_in_mana_zone.append(self.picked_up_card)
             self.cards_in_hand.remove(self.picked_up_card)
             self.picked_up_card = None
+            self.if_charged_mana = True
         except Exception as error:
             print(error)
             print('No card picked')
@@ -132,6 +136,7 @@ class Player:
         card.is_in_graveyard()
 
     def play_card(self):
+        # TODO should be able to auto tap mana, when playing a card.
         print(f"{self.name} play's {self.picked_up_card.name}")
         # first check if players floating mana meets the cards requirements.
         # check if the player has at least one mana of the right color.
@@ -176,7 +181,7 @@ class Player:
 
     def next_phase(self):
         self.current_phase = next(self.turn_phases)  # cycles over turn phases.
-        print(self.current_phase)
+        print(self.name, self.current_phase)
         if self.current_phase == "untap":
             self.untap_cards()
 
@@ -187,10 +192,7 @@ class Player:
     def untap_cards(self):
         for card in (self.cards_in_battle_zone + self.cards_in_mana_zone):
             card.is_tapped = False
-
-    def charge_step(self):
-        # can only charge on card to mana per round.
-        pass
+        self.if_charged_mana = False
 
     def main(self):
         # can play cards with mana.
@@ -214,7 +216,7 @@ class Player:
                f'player manazone ({len(self.cards_in_mana_zone)}): {[card.name for card in self.cards_in_mana_zone]}\n'\
                f'player active ({len(self.interactive_cards)}): {[card.name for card in self.interactive_cards]}\n' \
                f'saved deck {self.saved_deck}\n' \
-               f'mana {self.charged_mana}\n' \
+               f'mana {self.available_mana}\n' \
                f'float mana {self.floating_mana}' \
 
 
@@ -238,20 +240,17 @@ class NpcOpponent(Player):
         self.positions_in_battlezone = zones_class.battlezone.positions_npc
 
 
-human = Player()
-human.name = "sander"
+player = Player()
+player.name = "sander"
 npc = NpcOpponent()
 npc.name = "npc"
 
 npc.setup()
-
-npc.charged_mana = {"Darkness": 10, "Light": 10, "Fire": 10, "Nature": 10, "Water": 10}
-npc.floating_mana = {"Darkness": 10, "Light": 10, "Fire": 10, "Nature": 10, "Water": 10}
+player.setup()
 
 
-while npc.cards_in_hand:
-    for card in npc.cards_in_hand:
-        npc.picked_up_card = card
-        npc.play_card()
+
+
+
 
 

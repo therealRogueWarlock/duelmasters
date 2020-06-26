@@ -80,7 +80,7 @@ class Zones:
             self.positions_player = [(x_pos * x, self.player_y_pos) for x in range(5, 45)]
 
             # creating positions for cards in npc shieldzone
-            self.npc_y_pos = int(screen_size[1]*0.05)  # 250
+            self.npc_y_pos = int(screen_size[1]*0.2)
             self.positions_npc = [(x_pos * x, self.npc_y_pos) for x in range(5, 45)]
 
 

@@ -1,7 +1,7 @@
 #  This module will contain all classes and funcitons for drawing on the window.
 import pygame
 from load_sprits import sprite_loader
-from players import human, npc
+from players import player, npc
 from buttons import all_buttons
 from zones import zones_class
 import itertools
@@ -24,11 +24,11 @@ class BlitGame:
         pygame.display.set_caption('Duel Masters')
 
     def blit_hand(self):
-        for card in human.cards_in_hand:
-            card.blit_card(human.mouse_pos(), self.window)
+        for card in player.cards_in_hand:
+            card.blit_card(player.mouse_pos(), self.window)
 
     def blit_shields(self):
-        for card in human.shields:
+        for card in player.shields:
             card_back = pygame.transform.scale(sprite_loader.card_back,  # the card size is scaling with screen res.
                                                (int(self.screen_size[0]*0.052), int(self.screen_size[1]*0.13)))
             self.window.blit(card_back, zones_class.shieldzone.positions_player[card.pos_index])
@@ -40,7 +40,7 @@ class BlitGame:
 
     def blit_mana_zone(self):
         pygame.draw.rect(self.window, (0, 0, 0), zones_class.manazone.rect)
-        for card in human.cards_in_mana_zone:
+        for card in player.cards_in_mana_zone:
             card.blit_card((0, 0), self.window)
 
         for card in npc.cards_in_mana_zone:
@@ -62,8 +62,8 @@ class BlitGame:
 
     def blit_battle_zone(self):
         pygame.draw.rect(self.window, (255, 0, 0), zones_class.battlezone.rect)
-        for card in human.cards_in_battle_zone:
-            card.blit_card(human.mouse_pos(), self.window)
+        for card in player.cards_in_battle_zone:
+            card.blit_card(player.mouse_pos(), self.window)
 
         for card in npc.cards_in_battle_zone:
             card.blit_card((0, 0), self.window)
@@ -72,7 +72,7 @@ class BlitGame:
         pass
 
     def blit_info(self):
-        text = self.font_for_info.render(human.current_phase, 1, (0, 0, 0))
+        text = self.font_for_info.render(player.current_phase, 1, (0, 0, 0))
         self.window.blit(text, (self.screen_size[0]*0.88, self.screen_size[1]*0.87))
 
         text = self.font_for_info.render(npc.current_phase, 1, (0, 0, 0))
@@ -81,7 +81,7 @@ class BlitGame:
     def blit_buttons(self):
         for key in all_buttons:
             if key == "attack":
-                if human.current_phase == "attack":
+                if player.current_phase == "attack":
                     all_buttons[key].blit(self.window)
             else:
                 all_buttons[key].blit(self.window)

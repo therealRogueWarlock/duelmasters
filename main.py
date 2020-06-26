@@ -20,11 +20,12 @@ class Main:
         pass
 
     def game_loop(self):
-        while self.running:
-            self.player_take_turn(human, npc)
-            self.player_take_turn(npc, human)
 
-    def check_events(self, player, enemy):
+        while self.running:
+            self.player_take_turn()
+            self.npc_take_turn()
+
+    def check_player_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -50,11 +51,10 @@ class Main:
                                         player.selected_card = card
                                         print(player.selected_card.name, card.owner)
 
-                                    if card in enemy.cards_in_battle_zone:
+                                    if card in npc.cards_in_battle_zone:
                                         card.is_double_clicked()
                                         player.target_card = card
                                         print(player.target_card.name, card.owner)
-
 
                             if card.in_hand:
                                 # when the card is clicked it will be moved to the last pos in hand.
@@ -63,7 +63,7 @@ class Main:
                                 player.cards_in_hand.append(card)
 
                             if card.in_mana_zone:
-                                player.float_mana(card)  # player will float mana from the card if not tapped.
+                                player.float_mana(card)  # self.player will float mana from the card if not tapped.
                             else:
                                 player.picked_up_card = card
 
@@ -71,7 +71,11 @@ class Main:
                 if zones_class.manazone.mouse_is_over(player.mouse_pos()):
                     if player.picked_up_card:
                         if player.current_phase == "charge":
-                            player.put_card_in_mana_zone()
+                            if not player.if_charged_mana:
+                                player.put_card_in_mana_zone()
+                            else:
+                                print("you can only charge mana once per turn.")
+
                         else:
                             print('you can only charge mana when in charge step.')
 
@@ -96,7 +100,6 @@ class Main:
                             player.next_phase()
 
                         if button.text == "attack":
-
                             player.selected_card.fight(player.target_card)
 
             if event.type == pygame.KEYDOWN:
@@ -120,13 +123,57 @@ class Main:
                 if event.key == pygame.K_i:
                     print(player.player_info())
 
-    def player_take_turn(self, player, enemy):
+    def npc_check_for_events(self):
+        if npc.current_phase == "untap":
+            npc.next_phase()
+
+        if npc.current_phase == "draw":
+            npc.player_info()
+            npc.next_phase()
+
+        if npc.current_phase == "charge":
+            # TODO need more logic
+            if len(npc.cards_in_mana_zone) < 5:
+                max_mana_cost = 0
+                for card in npc.cards_in_hand:
+                    if card.mana_cost > max_mana_cost:
+                        max_mana_cost = card.mana_cost
+                        npc.picked_up_card = card
+                npc.put_card_in_mana_zone()
+            npc.next_phase()
+
+        if npc.current_phase == "main":
+            if len(npc.cards_in_mana_zone) > 1:
+                low_mana_cost = 0
+                for card in npc.cards_in_hand:
+                    if card.mana_cost > low_mana_cost:
+                        low_mana_cost = card.mana_cost
+                        npc.picked_up_card = card
+                npc.play_card()
+            npc.next_phase()
+
+        if npc.current_phase == "attack":
+            npc.next_phase()
+
+        if npc.current_phase == "end":
+            npc.next_phase()
+
+    def player_take_turn(self):
         print(f"start {player.name}'s turn")
         player.next_phase()
         while player.current_phase is not None:
             self.clock.tick(self.tick_rate)
             blit_game.blit_window()
-            self.check_events(player, enemy)
+            self.check_player_events()
+        print(f"end {player.name}'s turn")
+        player.turn_counter += 1
+
+    def npc_take_turn(self):
+        npc.next_phase()
+        while npc.current_phase is not None:
+            self.clock.tick(self.tick_rate)
+            blit_game.blit_window()
+            self.npc_check_for_events()
         player.turn_counter += 1
 
     def pause(self):
@@ -136,13 +183,13 @@ class Main:
         pass
 
 
-main_class = Main
+main_class = Main()
 
 if __name__ == "__main__":
     pygame.init()
     from blit import blit_game
     from zones import zones_class
-    from players import human, npc
+    from players import player, npc
     from buttons import all_buttons
 
-    main_class().start()
+    main_class.start()
