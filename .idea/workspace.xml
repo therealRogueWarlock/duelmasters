@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="" />
+    <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reedme" beforeDir="false" afterPath="$PROJECT_DIR$/Reedme" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +19,9 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1c2egltuMjpPvcJBXAZ6oTmilC8" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -83,6 +89,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="243" y="326" key="#com.intellij.fileTypes.FileTypeChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1589744631559" />
+    <state x="141" y="114" key="CommitChangelistDialog2" timestamp="1593203222240">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="141" y="114" key="CommitChangelistDialog2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593203222240" />
     <state x="279" y="278" key="FileChooserDialogImpl" timestamp="1592248402223">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -132,11 +142,15 @@
     </state>
     <state x="-1680" y="193" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1591973667476" />
     <state x="0" y="166" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1592146389881" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593177976867">
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593203264530">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593177976867" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593103549464" />
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593203264530" />
+    <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593203237543">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593203237543" />
     <state x="-7" y="0" width="974" height="1047" key="dock-window-1" timestamp="1593105231804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
