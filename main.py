@@ -1,4 +1,6 @@
 import pygame
+import time
+import threading
 import sys
 
 
@@ -6,6 +8,12 @@ import sys
 class Main:
     def __init__(self):
         self.clock = pygame.time.Clock()
+
+        # ticks used to slow down npc phases of turn, without stopping blitting and player input.
+        self.get_ticks = pygame.time.get_ticks
+        self.npc_turn_start_time = 0
+        self.npc_turn_time = 0
+
         self.double_click_clock = pygame.time.Clock()
         self.running = False
         self.tick_rate = 144
@@ -20,8 +28,8 @@ class Main:
         pass
 
     def game_loop(self):
-
         while self.running:
+            self.clock.tick(self.tick_rate)
             self.player_take_turn()
             self.npc_take_turn()
 
@@ -31,9 +39,10 @@ class Main:
                 pygame.quit()
                 sys.exit()
 
-            active_cards = player.get_interactive_cards() + npc.cards_in_battle_zone + npc.cards_in_mana_zone
+            active_cards = player.get_interactive_cards() + npc.cards_in_battle_zone
 
-            for card in active_cards:
+            # all cards on battlefield can be hovered over to get info.
+            for card in active_cards + npc.cards_in_mana_zone:
                 card.mouse_is_over(player.mouse_pos())
 
             # if the mouse is clicked check if mouse is over a card or button.
@@ -109,8 +118,9 @@ class Main:
                     button = all_buttons[button_name]
                     if button.is_over(player.mouse_pos()):
 
-                        if button.text == "next":
-                            player.next_phase()
+                        if player.current_phase is not None:  # player can only click the button if its players turn.
+                            if button.text == "next":
+                                player.next_phase()
 
                         if button.text == "attack":
                             player.selected_card.fight(player.target_card)
@@ -124,6 +134,7 @@ class Main:
                     player.draw_a_card()
 
                 if event.key == pygame.K_r:
+                    npc.setup()
                     player.setup()
 
                 if event.key == pygame.K_t:
@@ -137,39 +148,30 @@ class Main:
                     print(player.player_info())
 
     def npc_check_for_events(self):
+
         if npc.current_phase == "untap":
-            npc.next_phase()
+            if self.npc_turn_time >= self.npc_turn_start_time + 1000:
+                npc.next_phase()
 
         if npc.current_phase == "draw":
-            npc.player_info()
-            npc.next_phase()
+            if self.npc_turn_time >= self.npc_turn_start_time + 2000:
+                npc.next_phase()
 
         if npc.current_phase == "charge":
-            # TODO need more logic
-            if len(npc.cards_in_mana_zone) < 5:
-                max_mana_cost = 0
-                for card in npc.cards_in_hand:
-                    if card.mana_cost > max_mana_cost:
-                        max_mana_cost = card.mana_cost
-                        npc.picked_up_card = card
-                npc.put_card_in_mana_zone()
-            npc.next_phase()
+            if self.npc_turn_time >= self.npc_turn_start_time + 3000:
+                npc.next_phase()
 
         if npc.current_phase == "main":
-            if len(npc.cards_in_mana_zone) > 1:
-                low_mana_cost = 0
-                for card in npc.cards_in_hand:
-                    if card.mana_cost > low_mana_cost:
-                        low_mana_cost = card.mana_cost
-                        npc.picked_up_card = card
-                npc.play_card()
-            npc.next_phase()
+            if self.npc_turn_time >= self.npc_turn_start_time + 5000:
+                npc.next_phase()
 
         if npc.current_phase == "attack":
-            npc.next_phase()
+            if self.npc_turn_time >= self.npc_turn_start_time + 6000:
+                npc.next_phase()
 
         if npc.current_phase == "end":
-            npc.next_phase()
+            if self.npc_turn_time >= self.npc_turn_start_time + 7000:
+                npc.next_phase()
 
     def player_take_turn(self):
         print(f"start {player.name}'s turn")
@@ -179,15 +181,18 @@ class Main:
             blit_game.blit_window()
             self.check_player_events()
         print(f"end {player.name}'s turn")
-        player.turn_counter += 1
 
     def npc_take_turn(self):
+        print(f"start {npc.name}'s turn")
         npc.next_phase()
+        self.npc_turn_start_time = self.get_ticks()
         while npc.current_phase is not None:
             self.clock.tick(self.tick_rate)
-            blit_game.blit_window()
+            self.npc_turn_time = self.get_ticks()
             self.npc_check_for_events()
-        player.turn_counter += 1
+            self.check_player_events()
+            blit_game.blit_window()
+        print(f"end {npc.name}'s turn")
 
     def pause(self):
         pass

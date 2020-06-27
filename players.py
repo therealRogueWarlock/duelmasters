@@ -57,6 +57,9 @@ class Player:
         self.positions_in_battlezone = zones_class.battlezone.positions_player
         self.positions_in_manazone = zones_class.manazone.positions_player
 
+        self.hand_pos_x = (0.465, 0.29)
+        self.hand_pos_y = 0.83334
+
         self.target_card = None  # Target an enemy card
         self.selected_card = None  # select own card.
 
@@ -106,8 +109,8 @@ class Player:
         positions_in_hand = []
         # as long as hand size is less then 7 there will be no card overlapping
         if hand_size < 7:
-            positions_in_hand = [((int(screen_size[0] * (0.465 - (0.025 * hand_size)) + x * int(screen_size[0] * 0.051))),
-                                  int(screen_size[1] * 0.83334)) for x in range(hand_size)]
+            positions_in_hand = [((int(screen_size[0] * (self.hand_pos_x[0] - (0.025 * hand_size)) + x * int(screen_size[0] * 0.051))),
+                                  int(screen_size[1] * self.hand_pos_y)) for x in range(hand_size)]
 
         # creats a list of positions according to hand width and hand size.
         else:
@@ -119,11 +122,11 @@ class Player:
 
             for x in range(hand_size):  # create a list the size of the hand.
 
-                move_hand_left = int(screen_width * 0.29 + (hand_spot_size / 3))  # the position of the hand on x-
+                move_hand_left = int(screen_width * self.hand_pos_x[1] + (hand_spot_size / 3))  # the position of the hand on x-
 
                 card_pos_x = move_hand_left + hand_spot_size * x
 
-                positions_in_hand.append((card_pos_x, int(screen_height * 0.83334)))
+                positions_in_hand.append((card_pos_x, int(screen_height * self.hand_pos_y)))
 
         for card in self.cards_in_hand:
             card.set_position_to(positions_in_hand[card.pos_index])
@@ -216,9 +219,13 @@ class Player:
             if not self.turn_counter == 0:  # if not starting draw card.
                 self.draw_a_card()
 
+        if self.current_phase is None:
+            self.turn_counter += 1
+
     def untap_cards(self):
         for card in (self.cards_in_battle_zone + self.cards_in_mana_zone):
             card.is_tapped = False
+            card.summoning_sickness = False
         self.if_charged_mana = False
 
     def main(self):
@@ -251,16 +258,12 @@ class NpcOpponent(Player):
     def __init__(self):
         super().__init__()
 
-        self.saved_deck = ['MieleVizierofLightning', 'MieleVizierofLightning', 'NightMasterShadowofDecay',
-                           'MieleVizierofLightning', 'LaUraGigaSkyGuardian', 'LaUraGigaSkyGuardian', 'GhostTouch',
-                           'Gigaberos', 'Gigagiele', 'SkeletonSoldiertheDefiled', 'WrithingBoneGhoul',
-                           'WrithingBoneGhoul', 'WrithingBoneGhoul',
-                           'WrithingBoneGhoul', 'DeathSmoke', 'DeathSmoke', 'MieleVizierofLightning',
-                           'MieleVizierofLightning', 'MieleVizierofLightning', 'LaUraGigaSkyGuardian',
-                           'LaUraGigaSkyGuardian', 'ToelVizierofHope', 'SzubsKinTwilightGuardian',
-                           'SenatineJadeTree', 'RubyGrass', 'CreepingPlague', 'BoneSpider',
-                           'SuperExplosiveVolcanodon', 'Stonesaur', 'ScarletSkyterror',
-                           'RothusTheTraveler', 'SteelSmasher', 'GoldenWingStriker', 'BronzeArmTribe']
+        self.saved_deck = ['DeadlyFighterBraidClaw', 'ArmoredWalkerUrherion', 'ArmoredWalkerUrherion', 'ArtisanPicora',
+                           'ArtisanPicora', 'BolshackDragon', 'BrawlerZyler', 'BrawlerZyler', 'BrawlerZyler',
+                           'DeadlyFighterBraidClaw', 'FatalAttackerHorvath', 'FatalAttackerHorvath',
+                           'FatalAttackerHorvath', 'FatalAttackerHorvath', 'FireSweeperBurningHellion',
+                           'FireSweeperBurningHellion', 'FireSweeperBurningHellion', 'ImmortalBaronVorg',
+                           'ImmortalBaronVorg', 'ImmortalBaronVorg', 'ImmortalBaronVorg']
 
         self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
 
@@ -268,6 +271,59 @@ class NpcOpponent(Player):
 
         self.positions_in_manazone = zones_class.manazone.positions_npc
 
+        self.hand_pos_x = (0.665, 0.29)
+        self.hand_pos_y = 0.05
+
+        self.turn_counter = 1
+
+    def next_phase(self):  # npc will have its onew next_phase methode. all the actions has to be automated.
+        self.current_phase = next(self.turn_phases)  # cycles over turn phases.
+        print(self.name, self.current_phase)
+        if self.current_phase == "untap":
+            self.untap_cards()
+
+        if self.current_phase == "draw":
+            if not self.turn_counter == 0:  # if not starting draw card.
+                self.draw_a_card()
+
+        if self.current_phase == "charge":
+            # TODO need more logic
+            if len(self.cards_in_hand) > 1:
+                if len(self.cards_in_mana_zone) < 6:
+                    max_mana_cost = 0
+                    for card in npc.cards_in_hand:
+                        if card.mana_cost > max_mana_cost:
+                            max_mana_cost = card.mana_cost
+                            self.picked_up_card = card
+                    self.put_card_in_mana_zone()
+
+        if self.current_phase == "main":
+            if len(self.cards_in_mana_zone) >= 1:
+
+                available_mana = len(self.cards_in_mana_zone)
+
+                lowest_mana_cost = 0
+
+                while available_mana >= lowest_mana_cost:
+
+                    lowest_mana_cost = 10
+
+                    for card in self.cards_in_hand:
+                        if card.mana_cost < lowest_mana_cost:
+
+                            lowest_mana_cost = card.mana_cost
+                            print(card.name)
+                            self.picked_up_card = card
+
+                            if available_mana >= lowest_mana_cost:
+                                for i in range(lowest_mana_cost):
+                                    self.cards_in_mana_zone[i].is_clicked()
+                                    self.float_mana(self.cards_in_mana_zone[i])
+                                available_mana -= self.picked_up_card.mana_cost
+                                self.play_card()
+
+        if self.current_phase is None:
+            self.turn_counter += 1
 
 player = Player()
 player.name = "sander"
@@ -275,4 +331,4 @@ npc = NpcOpponent()
 npc.name = "npc"
 
 npc.setup()
-# player.setup()
+player.setup()

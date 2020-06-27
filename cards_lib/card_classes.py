@@ -2,6 +2,7 @@
 from cards_lib.card_dictionary import card_dict
 import pygame
 
+
 infos = pygame.display.Info()
 screen_size = (infos.current_w, infos.current_h)
 
@@ -72,6 +73,8 @@ class ACard:
 
         # check how owns the card.
         self.owner = None
+
+        self.summoning_sickness = True
 
     # Card abilities/card triggers.
     def blocker(self):
