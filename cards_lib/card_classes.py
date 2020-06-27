@@ -129,26 +129,18 @@ class ACard:
         self.set_all_zones_to_false()
 
     def set_position_to(self, new_pos):
-        if self.is_picked_up:  # centering the mouse on the card.
-            new_pos = (new_pos[0] - (self.width / 2), new_pos[1] - (self.height / 2))
+        if self.is_picked_up:  # centering the card on the mouse.
+            self.pos_xy = new_pos[0] - (self.width / 2), new_pos[1] - (self.height / 2)
+            return self.pos_xy
+
         self.pos_xy = new_pos
 
-    def position(self, mouse_pos):
-        if self.is_picked_up:  # if the card is picked up the card will get pos according to mouse.
-            self.set_position_to(mouse_pos)
-
-        elif self.in_hand:
-            positions_in_hand = [((int(screen_size[0] * 0.0625) * x), int(screen_size[1] * 0.83334)) for x in range(5, 40)]
-
-            self.pos_xy = positions_in_hand[self.pos_index]
         return self.pos_xy
 
     # create a function to blit it self.
     def blit_card(self, player_mouse_pos, window):
         # getting the img to blit, and resizing it.
         card_img = pygame.transform.scale(self.img, (self.width, self.height))
-
-        # drawing a rect around the card. ( for debug purpose).
 
         if self.in_mana_zone:
             card_img = pygame.transform.flip(card_img, False, True)
@@ -164,11 +156,14 @@ class ACard:
                                  (self.pos_xy[0] - 5, self.pos_xy[1] - 5, self.width + 10, self.height + 10))
                 window.blit(self.info_img, (int(screen_size[0] * 0.825), int(screen_size[1] * 0.363)))
 
-        # if that card is picked up, the card will get mouse pos.
-        window.blit(card_img, self.position(player_mouse_pos))
+        if self.is_picked_up:
+            # if that card is picked up, the card will get mouse pos.
+            window.blit(card_img, self.set_position_to(player_mouse_pos))
 
         if self.hover_over:
             window.blit(self.info_img, (int(screen_size[0] * 0.625), int(screen_size[1] * 0.363)))
+
+        window.blit(card_img, self.pos_xy)
 
     # functions for logic.
     def mouse_is_over(self, pos):

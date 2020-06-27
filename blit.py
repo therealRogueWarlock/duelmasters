@@ -25,7 +25,14 @@ class BlitGame:
 
     def blit_hand(self):
         for card in player.cards_in_hand:
-            card.blit_card(player.mouse_pos(), self.window)
+            if not card.is_picked_up:
+                card.blit_card(player.mouse_pos(), self.window)
+
+        if player.picked_up_card:
+            player.picked_up_card.blit_card(player.mouse_pos(), self.window)
+
+        # for card in npc.cards_in_hand:
+        #     card.blit_card((), self.window)
 
     def blit_shields(self):
         for card in player.shields:
@@ -44,21 +51,24 @@ class BlitGame:
             card.blit_card((0, 0), self.window)
 
         for card in npc.cards_in_mana_zone:
-            card.is_tapped = False
+            card.blit_card((0, 0), self.window)
 
-            # scaling card down to size
-            card_img = pygame.transform.scale(card.img, (card.height, card.width))
 
-            # flipping the card upside down to indicate its in manazone.
-            card_img = pygame.transform.flip(card_img, True, False)
-
-            card_img = pygame.transform.chop(card_img, (100, 17, 100, 101))  # no idea how it works, but i looks okey.
-
-            if card.is_tapped:
-                # rotating the card 90 degrees if the card is tapped.
-                card_img = pygame.transform.rotozoom(card_img, 90, 1)
-
-            self.window.blit(card_img, zones_class.manazone.positions_npc[card.pos_index])
+            # card.is_tapped = False
+            #
+            # # scaling card down to size
+            # card_img = pygame.transform.scale(card.img, (card.height, card.width))
+            #
+            # # flipping the card upside down to indicate its in manazone.
+            # card_img = pygame.transform.flip(card_img, True, False)
+            #
+            # card_img = pygame.transform.chop(card_img, (100, 17, 100, 101))  # no idea how it works, but i looks okey.
+            #
+            # if card.is_tapped:
+            #     # rotating the card 90 degrees if the card is tapped.
+            #     card_img = pygame.transform.rotozoom(card_img, 90, 1)
+            #
+            # self.window.blit(card_img, zones_class.manazone.positions_npc[card.pos_index])
 
     def blit_battle_zone(self):
         pygame.draw.rect(self.window, (255, 0, 0), zones_class.battlezone.rect)

@@ -55,6 +55,7 @@ class Player:
         # when a card in the manazone is clicked "tapped" the card charges mana for the player to use.
 
         self.positions_in_battlezone = zones_class.battlezone.positions_player
+        self.positions_in_manazone = zones_class.manazone.positions_player
 
         self.target_card = None  # Target an enemy card
         self.selected_card = None  # select own card.
@@ -66,7 +67,7 @@ class Player:
         return random.shuffle(self.deck_list)
 
     def draw_hand(self):
-        for i in range(5):  # Draw five cards.
+        for _ in range(5):  # Draw five cards.
             try:
                 self.draw_a_card()
             except IndexError:
@@ -96,8 +97,33 @@ class Player:
             print('Deck is out of cards.')
 
     def position_cards_in_hand(self):
-        positions_in_hand = [((int(screen_size[0] * 0.425) + x),
-                              int(screen_size[1] * 0.83334)) for x in range(len(self.cards_in_hand))]
+        for i, card in zip(itertools.count(), self.cards_in_hand):
+            card.pos_index = i
+
+        hand_size = len(self.cards_in_hand)
+        screen_width = screen_size[0]
+        screen_height = screen_size[1]
+        positions_in_hand = []
+        # as long as hand size is less then 7 there will be no card overlapping
+        if hand_size < 7:
+            positions_in_hand = [((int(screen_size[0] * (0.465 - (0.025 * hand_size)) + x * int(screen_size[0] * 0.051))),
+                                  int(screen_size[1] * 0.83334)) for x in range(hand_size)]
+
+        # creats a list of positions according to hand width and hand size.
+        else:
+            max_hand_width = screen_width*0.3125   # the width of the hand is max 31 % of the screen.
+
+            hand_spot_size = int(max_hand_width / hand_size)  # the size of the spots are determent by hand size-
+
+            overlap = max_hand_width/hand_spot_size  # overlap is how much the cards overlap.
+
+            for x in range(hand_size):  # create a list the size of the hand.
+
+                move_hand_left = int(screen_width * 0.29 + (hand_spot_size / 3))  # the position of the hand on x-
+
+                card_pos_x = move_hand_left + hand_spot_size * x
+
+                positions_in_hand.append((card_pos_x, int(screen_height * 0.83334)))
 
         for card in self.cards_in_hand:
             card.set_position_to(positions_in_hand[card.pos_index])
@@ -116,7 +142,7 @@ class Player:
             self.picked_up_card.is_picked_up = False
             self.picked_up_card.is_in_mana_zone()
             self.picked_up_card.pos_index = len(self.cards_in_mana_zone)
-            self.picked_up_card.set_position_to(zones_class.manazone.positions_player[self.picked_up_card.pos_index])
+            self.picked_up_card.set_position_to(self.positions_in_manazone[self.picked_up_card.pos_index])
             self.cards_in_mana_zone.append(self.picked_up_card)
             self.cards_in_hand.remove(self.picked_up_card)
             self.picked_up_card = None
@@ -154,7 +180,7 @@ class Player:
                 self.cards_in_hand.remove(self.picked_up_card)
                 self.picked_up_card = None
                 # needs to only use mana consumed by the card, atm just reset floating mana after play.
-                #self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0}  # really needs a FIX!
+                # self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0}  # really needs a FIX!
         else:
             print("mana requirements not met.")
 
@@ -175,7 +201,8 @@ class Player:
         self.cards_in_battle_zone = []
 
     def get_interactive_cards(self):
-        self.interactive_cards = (self.cards_in_hand + self.cards_in_graveyard + self.cards_in_mana_zone + self.cards_in_battle_zone)
+        self.interactive_cards = (
+                    self.cards_in_hand + self.cards_in_graveyard + self.cards_in_mana_zone + self.cards_in_battle_zone)
         interactive_cards = self.interactive_cards
         return interactive_cards
 
@@ -213,12 +240,11 @@ class Player:
         return f'player decklist ({len(self.deck_list)}): {[card.name for card in self.deck_list]}\n ' \
                f'player hand ({len(self.cards_in_hand)}): {[card.name for card in self.cards_in_hand]}\n ' \
                f'player shields ({len(self.shields)}): {[card.name for card in self.shields]}\n ' \
-               f'player manazone ({len(self.cards_in_mana_zone)}): {[card.name for card in self.cards_in_mana_zone]}\n'\
+               f'player manazone ({len(self.cards_in_mana_zone)}): {[card.name for card in self.cards_in_mana_zone]}\n' \
                f'player active ({len(self.interactive_cards)}): {[card.name for card in self.interactive_cards]}\n' \
                f'saved deck {self.saved_deck}\n' \
                f'mana {self.available_mana}\n' \
-               f'float mana {self.floating_mana}' \
-
+               f'float mana {self.floating_mana}'
 
 
 class NpcOpponent(Player):
@@ -227,7 +253,8 @@ class NpcOpponent(Player):
 
         self.saved_deck = ['MieleVizierofLightning', 'MieleVizierofLightning', 'NightMasterShadowofDecay',
                            'MieleVizierofLightning', 'LaUraGigaSkyGuardian', 'LaUraGigaSkyGuardian', 'GhostTouch',
-                           'Gigaberos', 'Gigagiele', 'SkeletonSoldiertheDefiled', 'WrithingBoneGhoul', 'WrithingBoneGhoul', 'WrithingBoneGhoul',
+                           'Gigaberos', 'Gigagiele', 'SkeletonSoldiertheDefiled', 'WrithingBoneGhoul',
+                           'WrithingBoneGhoul', 'WrithingBoneGhoul',
                            'WrithingBoneGhoul', 'DeathSmoke', 'DeathSmoke', 'MieleVizierofLightning',
                            'MieleVizierofLightning', 'MieleVizierofLightning', 'LaUraGigaSkyGuardian',
                            'LaUraGigaSkyGuardian', 'ToelVizierofHope', 'SzubsKinTwilightGuardian',
@@ -239,6 +266,8 @@ class NpcOpponent(Player):
 
         self.positions_in_battlezone = zones_class.battlezone.positions_npc
 
+        self.positions_in_manazone = zones_class.manazone.positions_npc
+
 
 player = Player()
 player.name = "sander"
@@ -246,11 +275,4 @@ npc = NpcOpponent()
 npc.name = "npc"
 
 npc.setup()
-player.setup()
-
-
-
-
-
-
-
+# player.setup()

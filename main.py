@@ -31,7 +31,7 @@ class Main:
                 pygame.quit()
                 sys.exit()
 
-            active_cards = player.get_interactive_cards() + npc.cards_in_battle_zone
+            active_cards = player.get_interactive_cards() + npc.cards_in_battle_zone + npc.cards_in_mana_zone
 
             for card in active_cards:
                 card.mouse_is_over(player.mouse_pos())
@@ -55,12 +55,6 @@ class Main:
                                         card.is_double_clicked()
                                         player.target_card = card
                                         print(player.target_card.name, card.owner)
-
-                            if card.in_hand:
-                                # when the card is clicked it will be moved to the last pos in hand.
-                                # This will make that card blit last, and stay ontop.
-                                player.cards_in_hand.remove(card)
-                                player.cards_in_hand.append(card)
 
                             if card.in_mana_zone:
                                 player.float_mana(card)  # self.player will float mana from the card if not tapped.
@@ -87,9 +81,28 @@ class Main:
                             else:
                                 print('you can only play a card when in main step.')
 
+                if player.picked_up_card:  # moving around cards in hand.
+
+                    for card in player.cards_in_hand:
+                        if not card == player.picked_up_card:
+                            if card.mouse_is_over(player.mouse_pos()):
+                                print(player.picked_up_card.name, 'switch place with', card.name)
+                                switch_index = card.pos_index  # store card index
+
+                                player.cards_in_hand.remove(card)
+                                player.cards_in_hand.insert(player.picked_up_card.pos_index, card)
+
+                                player.cards_in_hand.remove(player.picked_up_card)
+                                player.cards_in_hand.insert(switch_index, player.picked_up_card)
+
+
+                        else:
+                            print('skipped')
+
                 for card in active_cards:  # if mouse not clicked, no card is picked up.
                     card.is_picked_up = False
                     player.picked_up_card = None
+                    player.position_cards_in_hand()
 
                 # checking if a button is clicked, and what button.
                 for button_name in all_buttons:

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="" />
-    <list id="c66bbc84-2128-4572-926b-df1100505a08" name="Working on npc logic" comment="">
+    <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blit.py" beforeDir="false" afterPath="$PROJECT_DIR$/blit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_lib/card_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/cards_lib/card_classes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
     </list>
+    <list id="c66bbc84-2128-4572-926b-df1100505a08" name="Working on npc logic" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,9 +38,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -101,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593212209391</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Working on npc logic">
+      <created>1593212590593</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1593212590593</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -109,7 +122,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -128,10 +143,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="243" y="326" key="#com.intellij.fileTypes.FileTypeChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1589744631559" />
-    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2" timestamp="1593212209053">
+    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2" timestamp="1593212590211">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212209053" />
+    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212590211" />
     <state x="279" y="278" key="FileChooserDialogImpl" timestamp="1592248402223">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -140,26 +155,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="320" y="424" key="GitRewordDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212252903" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593212265577">
+    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593267241375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212265577" />
-    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593212265577">
+    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593267241375" />
+    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593267241375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212265577" />
-    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593212265577">
+    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593267241375" />
+    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593267241375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212265577" />
-    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593212265577">
+    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593267241375" />
+    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593267241375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212265577" />
+    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593267241375" />
     <state width="816" height="333" key="GridCell.Tab.1.bottom" timestamp="1593114610023">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
@@ -180,34 +195,34 @@
     </state>
     <state width="816" height="333" key="GridCell.Tab.1.right/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
     <state width="936" height="345" key="GridCell.Tab.1.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593006343431" />
-    <state x="0" y="166" key="SettingsEditor" timestamp="1592146389881">
+    <state x="0" y="166" key="SettingsEditor" timestamp="1593255263290">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1680" y="193" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1591973667476" />
-    <state x="0" y="166" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1592146389881" />
+    <state x="0" y="166" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593255263290" />
     <state x="327" y="439" key="VCS.ChangelistChooser" timestamp="1593212237592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="327" y="439" key="VCS.ChangelistChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212237592" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593212561743">
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593249236584">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593208728286" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212561743" />
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593249236584" />
     <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593212578857">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212578857" />
-    <state x="953" y="0" width="974" height="1047" key="dock-window-1" timestamp="1593212578889">
+    <state x="953" y="0" width="974" height="1047" key="dock-window-1" timestamp="1593249256855">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-7" y="0" width="974" height="1047" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593105231804" />
-    <state x="953" y="0" width="974" height="1047" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212578889" />
-    <state x="-847" y="32" width="854" height="1017" key="dock-window-2" timestamp="1593212578889">
+    <state x="953" y="0" width="974" height="1047" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593249256855" />
+    <state x="-847" y="32" width="854" height="1017" key="dock-window-2" timestamp="1593249256855">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="953" y="0" width="974" height="1047" key="dock-window-2/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593184669359" />
-    <state x="-847" y="32" width="854" height="1017" key="dock-window-2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212578889" />
+    <state x="-847" y="32" width="854" height="1017" key="dock-window-2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593249256855" />
     <state x="-7" y="0" width="974" height="1047" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1590174665049" />
     <state x="-7" y="0" width="974" height="1047" key="dock-window-3" timestamp="1593185883221">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -220,9 +235,9 @@
     </state>
     <state x="1181" y="167" key="refactoring.ChangeSignatureDialog/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1591041324117" />
     <state x="1181" y="167" key="refactoring.ChangeSignatureDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593211609588" />
-    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1592061305342">
+    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup" timestamp="1593254008343">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1592061305342" />
+    <state x="143" y="230" width="672" height="678" key="search.everywhere.popup/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593254008343" />
   </component>
 </project>
