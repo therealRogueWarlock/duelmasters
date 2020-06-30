@@ -1,5 +1,6 @@
 #  Creating a class for the cards dictionary.
 from cards_lib.card_dictionary import card_dict
+from load_sprits import sprite_loader
 import pygame
 
 
@@ -42,6 +43,7 @@ class ACard:
         # card properties.
         self.img = card_dict[self.civilization][self.name]["img"]
         self.info_img = pygame.transform.scale(self.img, (int(screen_size[0] * 0.159), int(screen_size[1] * 0.381)))
+        self.card_back_img = sprite_loader.card_back
 
         self.pos_xy = (0, 0)
         self.pos_index = 0
@@ -75,6 +77,8 @@ class ACard:
         self.owner = None
 
         self.summoning_sickness = True
+
+        self.triggers = []
 
     # Card abilities/card triggers.
     def blocker(self):
@@ -122,6 +126,14 @@ class ACard:
         self.height = int(screen_size[1] * 0.035)  # 37
         self.in_mana_zone = True
 
+    def is_in_hand(self):
+        self.set_all_zones_to_false()
+        self.in_hand = True
+
+    def is_in_shield_zone(self):
+        self.set_all_zones_to_false()
+        self.in_shield_zone = True
+
     def is_in_battle_zone(self):
         self.set_all_zones_to_false()
         self.width = int(screen_size[0] * 0.053)  # 100
@@ -145,28 +157,35 @@ class ACard:
         # getting the img to blit, and resizing it.
         card_img = pygame.transform.scale(self.img, (self.width, self.height))
 
-        if self.in_mana_zone:
-            card_img = pygame.transform.flip(card_img, False, True)
-
-        if self.is_tapped:
-            # rotating the card 90 degrees if the card is tapped.
-            card_img = pygame.transform.rotozoom(card_img, -90, 1)
-
-        # if the card is clicked it will be highlighted.
         if self.is_clicked_bool:
             if not self.in_mana_zone:
                 pygame.draw.rect(window, (250, 0, 0),
                                  (self.pos_xy[0] - 5, self.pos_xy[1] - 5, self.width + 10, self.height + 10))
                 window.blit(self.info_img, (int(screen_size[0] * 0.825), int(screen_size[1] * 0.363)))
 
-        if self.is_picked_up:
-            # if that card is picked up, the card will get mouse pos.
-            window.blit(card_img, self.set_position_to(player_mouse_pos))
+        if not self.in_shield_zone:
 
-        if self.hover_over:
-            window.blit(self.info_img, (int(screen_size[0] * 0.625), int(screen_size[1] * 0.363)))
+            if self.in_mana_zone:
+                card_img = pygame.transform.flip(card_img, False, True)
 
-        window.blit(card_img, self.pos_xy)
+            if self.is_tapped:
+                # rotating the card 90 degrees if the card is tapped.
+                card_img = pygame.transform.rotozoom(card_img, -90, 1)
+
+            # if the card is clicked it will be highlighted.
+
+
+            if self.is_picked_up:
+                # if that card is picked up, the card will get mouse pos.
+                window.blit(card_img, self.set_position_to(player_mouse_pos))
+
+            if self.hover_over:
+                window.blit(self.info_img, (int(screen_size[0] * 0.625), int(screen_size[1] * 0.363)))
+
+            window.blit(card_img, self.pos_xy)
+        else:
+            window.blit(self.card_back_img, self.pos_xy)
+
 
     # functions for logic.
     def mouse_is_over(self, pos):
@@ -179,6 +198,7 @@ class ACard:
         return False
 
     def is_clicked(self):
+        print(self.name, 'is clicked')
         if self.in_hand:
             self.is_picked_up = True
         if self.in_mana_zone:
@@ -188,6 +208,7 @@ class ACard:
                 self.is_tapped = False
 
     def is_double_clicked(self):
+        print(self.name, 'is double clicked')
         if not self.is_clicked_bool:
             self.is_clicked_bool = True
             self.is_tapped = True

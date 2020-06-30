@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blit.py" beforeDir="false" afterPath="$PROJECT_DIR$/blit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cards_lib/card_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/cards_lib/card_classes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_sprits.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_sprits.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
@@ -163,26 +164,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="320" y="424" key="GitRewordDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212252903" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593292756998">
+    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593545983945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118794" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593292756998" />
-    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593292756998">
+    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593545983945" />
+    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593545983944">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118793" />
-    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593292756998" />
-    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593292756998">
+    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593545983944" />
+    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593545983944">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118793" />
-    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593292756998" />
-    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593292756998">
+    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593545983944" />
+    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593545983945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118793" />
-    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593292756998" />
+    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593545983944" />
     <state width="936" height="344" key="GridCell.Tab.1.bottom" timestamp="1593270319051">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -212,20 +213,20 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="327" y="439" key="VCS.ChangelistChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212237592" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593283332569">
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593345208693">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593283332569" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593275820739" />
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593345208693" />
     <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593267549138">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593267549138" />
-    <state x="-847" y="32" width="854" height="1017" key="dock-window-1" timestamp="1593292508458">
+    <state x="-847" y="32" width="854" height="1017" key="dock-window-1" timestamp="1593543263874">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="168" y="207" width="974" height="1047" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593283394903" />
-    <state x="-847" y="32" width="854" height="1017" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593292508458" />
+    <state x="-847" y="32" width="854" height="1017" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593543263874" />
     <state x="-847" y="32" width="854" height="1017" key="dock-window-2" timestamp="1593249256855">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>

@@ -36,9 +36,10 @@ class BlitGame:
 
     def blit_shields(self):
         for card in player.shields:
-            card_back = pygame.transform.scale(sprite_loader.card_back,  # the card size is scaling with screen res.
-                                               (int(self.screen_size[0]*0.052), int(self.screen_size[1]*0.13)))
-            self.window.blit(card_back, zones_class.shieldzone.positions_player[card.pos_index])
+            card.blit_card((0, 0), self.window)
+            # card_back = pygame.transform.scale(sprite_loader.card_back,  # the card size is scaling with screen res.
+            #                                    (int(self.screen_size[0]*0.052), int(self.screen_size[1]*0.13)))
+            # self.window.blit(card_back, zones_class.shieldzone.positions_player[card.pos_index])
 
         for card in npc.shields:
             card_back = pygame.transform.scale(sprite_loader.card_back,

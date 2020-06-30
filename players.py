@@ -56,15 +56,18 @@ class Player:
 
         self.positions_in_battlezone = zones_class.battlezone.positions_player
         self.positions_in_manazone = zones_class.manazone.positions_player
+        self.positions_in_shieldzone = zones_class.shieldzone.positions_player
 
         self.hand_pos_x = (0.465, 0.29)
-        self.hand_pos_y = 0.83334
+        self.hand_pos_y = 0.91
 
         self.target_card = None  # Target an enemy card
         self.selected_card = None  # select own card.
 
         # check if player chaged this turn.
         self.if_charged_mana = False
+
+        self.enemy = None
 
     def shuffle_deck(self):
         return random.shuffle(self.deck_list)
@@ -79,12 +82,29 @@ class Player:
     def draw_shields(self):
         for i in range(5):  # Draw five cards.
             try:
-                self.shields.append(self.deck_list[0])  # adding the first card of the deck to shields.
-                self.deck_list[0].pos_index = len(self.shields) - 1  # -1 cause we count after we appended the card.
-                self.deck_list[0].in_shield_zone = True  # the card now know its zone.
-                self.deck_list.remove(self.deck_list[0])  # removing the first card from the deck.
+                first_card = self.deck_list[0]  # the first card in the deck
+                self.shields.append(first_card)  # adding the first card of the deck to shields.
+                first_card.pos_index = len(self.shields) - 1  # -1 cause we count after we appended the card.
+                first_card.set_position_to(self.positions_in_shieldzone[first_card.pos_index])
+                first_card.is_in_shield_zone()  # the card now know its zone.
+                self.deck_list.remove(first_card)  # removing the first card from the deck.
+
             except IndexError:
                 print('Deck is out of cards.')
+
+    def put_shield_in_hand(self, shield_index):
+        shield_card = self.shields[shield_index]
+
+        if shield_card.triggers:
+            # if shield trigger, the it can be played for free imidetly
+            pass
+
+        else:
+            self.cards_in_hand.append(shield_card)  # adding shield card of hand.
+            shield_card.pos_index = len(self.cards_in_hand)-1  # -1 cause we count after we appended the card.
+            self.shields.remove(shield_card)
+            shield_card.is_in_hand()
+            self.position_cards_in_hand()
 
     def draw_a_card(self):
         try:
@@ -205,7 +225,8 @@ class Player:
 
     def get_interactive_cards(self):
         self.interactive_cards = (
-                    self.cards_in_hand + self.cards_in_graveyard + self.cards_in_mana_zone + self.cards_in_battle_zone)
+                    self.cards_in_hand + self.cards_in_graveyard + self.cards_in_mana_zone
+                    + self.cards_in_battle_zone + self.shields)
         interactive_cards = self.interactive_cards
         return interactive_cards
 
@@ -240,6 +261,22 @@ class Player:
         for card in self.cards_in_battle_zone + self.cards_in_mana_zone:
             pass
 
+    def manage_cards_in_hand(self):
+        if self.picked_up_card:  # moving around cards in hand.
+            for card in self.cards_in_hand:
+                if not card == self.picked_up_card:
+                    if card.mouse_is_over(self.mouse_pos()):
+                        self.position_cards_in_hand()
+                        switch_index = card.pos_index  # store card index.
+
+                        self.cards_in_hand.remove(card)
+                        self.cards_in_hand.insert(self.picked_up_card.pos_index, card)
+
+                        self.cards_in_hand.remove(self.picked_up_card)
+                        self.cards_in_hand.insert(switch_index, self.picked_up_card)
+
+                        self.position_cards_in_hand()
+
     def info(self):
         return f'picked card: {self.picked_up_card}'
 
@@ -251,7 +288,8 @@ class Player:
                f'player active ({len(self.interactive_cards)}): {[card.name for card in self.interactive_cards]}\n' \
                f'saved deck {self.saved_deck}\n' \
                f'mana {self.available_mana}\n' \
-               f'float mana {self.floating_mana}'
+               f'float mana {self.floating_mana}\n' \
+               f'picked card: {self.picked_up_card.name}'
 
 
 class NpcOpponent(Player):
@@ -268,8 +306,8 @@ class NpcOpponent(Player):
         self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
 
         self.positions_in_battlezone = zones_class.battlezone.positions_npc
-
         self.positions_in_manazone = zones_class.manazone.positions_npc
+        self.positions_in_shieldzone = zones_class.shieldzone.positions_npc
 
         self.hand_pos_x = (0.665, 0.29)
         self.hand_pos_y = 0.05
@@ -322,13 +360,35 @@ class NpcOpponent(Player):
                                 available_mana -= self.picked_up_card.mana_cost
                                 self.play_card()
 
+        if self.current_phase == "attack":
+            card_that_can_attack = []
+            available_targets = []
+            for card in self.cards_in_battle_zone:
+                if not card.summoning_sickness:
+                    if not card.is_tapped:
+                        card_that_can_attack.append(card)
+
+            for card in self.enemy.cards_in_battle_zone:
+                if not card.is_tapped:
+                    available_targets.append(card)
+
+
+
+
+
+
         if self.current_phase is None:
             self.turn_counter += 1
 
+
 player = Player()
 player.name = "sander"
+
 npc = NpcOpponent()
 npc.name = "npc"
+
+player.enemy = npc
+npc.enemy = player
 
 npc.setup()
 player.setup()

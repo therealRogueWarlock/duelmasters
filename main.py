@@ -15,6 +15,7 @@ class Main:
         self.npc_turn_time = 0
 
         self.double_click_clock = pygame.time.Clock()
+        self.wait_time = 500
         self.running = False
         self.tick_rate = 144
 
@@ -39,11 +40,13 @@ class Main:
                 pygame.quit()
                 sys.exit()
 
-            active_cards = player.get_interactive_cards() + npc.cards_in_battle_zone
+            active_cards = player.get_interactive_cards() + npc.cards_in_battle_zone + npc.shields
 
             # all cards on battlefield can be hovered over to get info.
             for card in active_cards + npc.cards_in_mana_zone:
                 card.mouse_is_over(player.mouse_pos())
+
+            player.manage_cards_in_hand()
 
             # if the mouse is clicked check if mouse is over a card or button.
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -52,22 +55,22 @@ class Main:
                         if card.mouse_is_over(player.mouse_pos()):
                             card.is_clicked()
 
-                            if self.double_click_clock.tick() < 500:
-
+                            if self.double_click_clock.tick() < self.wait_time:
                                 if player.current_phase == "attack":
                                     if card in player.cards_in_battle_zone:
                                         card.is_double_clicked()
                                         player.selected_card = card
                                         print(player.selected_card.name, card.owner)
 
-                                    if card in npc.cards_in_battle_zone:
-                                        card.is_double_clicked()
+                                    if card in npc.cards_in_battle_zone + npc.shields:
+                                        card.is_clicked_bool = True
                                         player.target_card = card
+
                                         print(player.target_card.name, card.owner)
 
                             if card.in_mana_zone:
                                 player.float_mana(card)  # self.player will float mana from the card if not tapped.
-                            else:
+                            if card.in_hand:
                                 player.picked_up_card = card
 
             if event.type == pygame.MOUSEBUTTONUP:
@@ -78,7 +81,6 @@ class Main:
                                 player.put_card_in_mana_zone()
                             else:
                                 print("you can only charge mana once per turn.")
-
                         else:
                             print('you can only charge mana when in charge step.')
 
@@ -89,24 +91,6 @@ class Main:
                                 player.play_card()
                             else:
                                 print('you can only play a card when in main step.')
-
-                if player.picked_up_card:  # moving around cards in hand.
-
-                    for card in player.cards_in_hand:
-                        if not card == player.picked_up_card:
-                            if card.mouse_is_over(player.mouse_pos()):
-                                print(player.picked_up_card.name, 'switch place with', card.name)
-                                switch_index = card.pos_index  # store card index
-
-                                player.cards_in_hand.remove(card)
-                                player.cards_in_hand.insert(player.picked_up_card.pos_index, card)
-
-                                player.cards_in_hand.remove(player.picked_up_card)
-                                player.cards_in_hand.insert(switch_index, player.picked_up_card)
-
-
-                        else:
-                            print('skipped')
 
                 for card in active_cards:  # if mouse not clicked, no card is picked up.
                     card.is_picked_up = False
@@ -123,7 +107,11 @@ class Main:
                                 player.next_phase()
 
                         if button.text == "attack":
-                            player.selected_card.fight(player.target_card)
+                            if player.target_card.in_shield_zone:
+                                npc.put_shield_in_hand(player.target_card.pos_index)
+
+                            else:
+                                player.selected_card.fight(player.target_card)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
