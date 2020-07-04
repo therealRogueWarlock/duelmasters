@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="updated features in players hand, player can now switch cards around. cards will overlap if hand size is large enough.">
+    <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blit.py" beforeDir="false" afterPath="$PROJECT_DIR$/blit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cards_lib/card_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/cards_lib/card_classes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/load_sprits.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_sprits.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/renamer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zones.py" beforeDir="false" afterPath="$PROJECT_DIR$/zones.py" afterDir="false" />
     </list>
     <list id="c66bbc84-2128-4572-926b-df1100505a08" name="Working on npc logic" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,10 +43,37 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
+    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/Programs/Python/Python38-32/Lib/site-packages/pygame" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Sander\AppData\Local\Programs\Python\Python38-32\Lib\site-packages\pygame" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="macfont" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DuelMasters" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/AppData/Local/Programs/Python/Python38-32/Lib/site-packages/pygame/examples/macosx" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/AppData/Local/Programs/Python/Python38-32/Lib/site-packages/pygame/examples/macosx/macfont.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DuelMasters" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -66,9 +95,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DuelMasters" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.utils" />
+        <item itemvalue="Python.macfont" />
       </list>
     </recent_temporary>
   </component>
@@ -122,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593267513447</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="updated features in players hand player can now switch cards around +. &#10;working on attacking, and npc attacking.">
+      <created>1593546071391</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1593546071391</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -145,17 +204,18 @@
     <MESSAGE value="Working on npc logic for taking a turn." />
     <MESSAGE value="Working on npc logic" />
     <MESSAGE value="updated features in players hand, player can now switch cards around. cards will overlap if hand size is large enough." />
-    <option name="LAST_COMMIT_MESSAGE" value="updated features in players hand, player can now switch cards around. cards will overlap if hand size is large enough." />
+    <MESSAGE value="updated features in players hand player can now switch cards around +. &#10;working on attacking, and npc attacking." />
+    <option name="LAST_COMMIT_MESSAGE" value="updated features in players hand player can now switch cards around +. &#10;working on attacking, and npc attacking." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="243" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1589744631559">
+    <state x="243" y="326" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1593614988564">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="243" y="326" key="#com.intellij.fileTypes.FileTypeChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1589744631559" />
-    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2" timestamp="1593267566517">
+    <state x="243" y="326" key="#com.intellij.fileTypes.FileTypeChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593614988564" />
+    <state x="141" y="114" width="1410" height="841" key="CommitChangelistDialog2" timestamp="1593546070918">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="141" y="114" width="1410" height="842" key="CommitChangelistDialog2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593267566517" />
+    <state x="141" y="114" width="1410" height="841" key="CommitChangelistDialog2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593546070918" />
     <state x="279" y="278" key="FileChooserDialogImpl" timestamp="1592248402223">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -164,69 +224,69 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="320" y="424" key="GitRewordDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212252903" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593545983945">
+    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593787399445">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118794" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593545983945" />
-    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593545983944">
+    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399445" />
+    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593787399445">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118793" />
-    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593545983944" />
-    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593545983944">
+    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399445" />
+    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593787399445">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118793" />
-    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593545983944" />
-    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593545983945">
+    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399445" />
+    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593787399445">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118793" />
-    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593545983944" />
-    <state width="936" height="344" key="GridCell.Tab.1.bottom" timestamp="1593270319051">
+    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399445" />
+    <state width="936" height="344" key="GridCell.Tab.1.bottom" timestamp="1593623920489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.1.bottom/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="936" height="344" key="GridCell.Tab.1.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593270319051" />
-    <state width="936" height="344" key="GridCell.Tab.1.center" timestamp="1593270319051">
+    <state width="936" height="344" key="GridCell.Tab.1.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593623920489" />
+    <state width="936" height="344" key="GridCell.Tab.1.center" timestamp="1593623920489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.1.center/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="936" height="344" key="GridCell.Tab.1.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593270319051" />
-    <state width="936" height="344" key="GridCell.Tab.1.left" timestamp="1593270319051">
+    <state width="936" height="344" key="GridCell.Tab.1.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593623920489" />
+    <state width="936" height="344" key="GridCell.Tab.1.left" timestamp="1593623920489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.1.left/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="936" height="344" key="GridCell.Tab.1.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593270319051" />
-    <state width="936" height="344" key="GridCell.Tab.1.right" timestamp="1593270319051">
+    <state width="936" height="344" key="GridCell.Tab.1.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593623920489" />
+    <state width="936" height="344" key="GridCell.Tab.1.right" timestamp="1593623920489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="816" height="333" key="GridCell.Tab.1.right/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593114610023" />
-    <state width="936" height="344" key="GridCell.Tab.1.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593270319051" />
-    <state x="0" y="166" key="SettingsEditor" timestamp="1593255263290">
+    <state width="936" height="344" key="GridCell.Tab.1.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593623920489" />
+    <state x="892" y="240" key="SettingsEditor" timestamp="1593615210526">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1680" y="193" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1591973667476" />
-    <state x="0" y="166" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593255263290" />
+    <state x="892" y="240" key="SettingsEditor/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593615210526" />
     <state x="327" y="439" key="VCS.ChangelistChooser" timestamp="1593212237592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="327" y="439" key="VCS.ChangelistChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212237592" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593345208693">
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593807399881">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593283332569" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593345208693" />
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593807399881" />
     <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593267549138">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593267549138" />
-    <state x="-847" y="32" width="854" height="1017" key="dock-window-1" timestamp="1593543263874">
-      <screen x="-1680" y="32" width="1680" height="1010" />
+    <state x="953" y="0" width="974" height="1047" maximized="true" key="dock-window-1" timestamp="1593787399474">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="168" y="207" width="974" height="1047" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593283394903" />
-    <state x="-847" y="32" width="854" height="1017" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593543263874" />
+    <state x="953" y="0" width="974" height="1047" maximized="true" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399474" />
     <state x="-847" y="32" width="854" height="1017" key="dock-window-2" timestamp="1593249256855">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>

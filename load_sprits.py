@@ -1,7 +1,7 @@
 import pygame
 from cards_lib.card_dictionary import card_dict
-infos = pygame.display.Info()
-screen_size = (infos.current_w, infos.current_h)
+from utils import percent_of_screen_width, percent_of_screen_height
+
 
 # might create a class to handle load of sprits.
 
@@ -14,7 +14,7 @@ class SpriteLoader:
         self.card_back_raw = pygame.image.load("Sprits/pic43176.jpg")
 
         self.card_back = pygame.transform.scale(self.card_back_raw,
-                                                (int(screen_size[0] * 0.052), int(screen_size[1] * 0.13)))
+                                                (percent_of_screen_width(5.2), percent_of_screen_height(13)))
 
     def load_cards_sprits(self):  # Utilizing the card dictionary.
         for civilization in self.cards_dict.keys():

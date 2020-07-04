@@ -1,6 +1,4 @@
 import pygame
-import time
-import threading
 import sys
 
 
@@ -107,11 +105,7 @@ class Main:
                                 player.next_phase()
 
                         if button.text == "attack":
-                            if player.target_card.in_shield_zone:
-                                npc.put_shield_in_hand(player.target_card.pos_index)
-
-                            else:
-                                player.selected_card.fight(player.target_card)
+                            player.selected_card.fight(player.target_card)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -136,29 +130,28 @@ class Main:
                     print(player.player_info())
 
     def npc_check_for_events(self):
-
         if npc.current_phase == "untap":
-            if self.npc_turn_time >= self.npc_turn_start_time + 1000:
+            if self.npc_turn_time >= self.npc_turn_start_time + 500:
                 npc.next_phase()
 
         if npc.current_phase == "draw":
-            if self.npc_turn_time >= self.npc_turn_start_time + 2000:
+            if self.npc_turn_time >= self.npc_turn_start_time + 1000:
                 npc.next_phase()
 
         if npc.current_phase == "charge":
-            if self.npc_turn_time >= self.npc_turn_start_time + 3000:
+            if self.npc_turn_time >= self.npc_turn_start_time + 1500:
                 npc.next_phase()
 
         if npc.current_phase == "main":
-            if self.npc_turn_time >= self.npc_turn_start_time + 5000:
+            if self.npc_turn_time >= self.npc_turn_start_time + 3000:
                 npc.next_phase()
 
         if npc.current_phase == "attack":
-            if self.npc_turn_time >= self.npc_turn_start_time + 6000:
+            if self.npc_turn_time >= self.npc_turn_start_time + 4000:
                 npc.next_phase()
 
         if npc.current_phase == "end":
-            if self.npc_turn_time >= self.npc_turn_start_time + 7000:
+            if self.npc_turn_time >= self.npc_turn_start_time:
                 npc.next_phase()
 
     def player_take_turn(self):

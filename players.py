@@ -23,7 +23,6 @@ class Player:
                            'RothusTheTraveler', 'SteelSmasher', 'GoldenWingStriker', 'BronzeArmTribe']
 
         # saving the deck two places, will help when resetting.
-
         self.turn_counter = 0
 
         # creates a list of card objects with the "ACard" class.
@@ -92,9 +91,7 @@ class Player:
             except IndexError:
                 print('Deck is out of cards.')
 
-    def put_shield_in_hand(self, shield_index):
-        shield_card = self.shields[shield_index]
-
+    def put_shield_in_hand(self, shield_card):
         if shield_card.triggers:
             # if shield trigger, the it can be played for free imidetly
             pass
@@ -232,7 +229,7 @@ class Player:
 
     def next_phase(self):
         self.current_phase = next(self.turn_phases)  # cycles over turn phases.
-        print(self.name, self.current_phase)
+
         if self.current_phase == "untap":
             self.untap_cards()
 
@@ -281,15 +278,15 @@ class Player:
         return f'picked card: {self.picked_up_card}'
 
     def player_info(self):
-        return f'player decklist ({len(self.deck_list)}): {[card.name for card in self.deck_list]}\n ' \
-               f'player hand ({len(self.cards_in_hand)}): {[card.name for card in self.cards_in_hand]}\n ' \
-               f'player shields ({len(self.shields)}): {[card.name for card in self.shields]}\n ' \
-               f'player manazone ({len(self.cards_in_mana_zone)}): {[card.name for card in self.cards_in_mana_zone]}\n' \
-               f'player active ({len(self.interactive_cards)}): {[card.name for card in self.interactive_cards]}\n' \
+        return f'player decklist ({len(self.deck_list)}): {[card.name for card in self.deck_list]}\n' \
+               f'player hand ({len(self.cards_in_hand)}): {[card.name for card in self.cards_in_hand]}\n' \
+               f'player shields ({len(self.shields)}): {[card.name for card in self.shields]}\n' \
+               f'player manazone ({len(self.cards_in_mana_zone)}): {[card.name for card in self.cards_in_mana_zone]}\n'\
+               f'available mana {self.available_mana}' \
                f'saved deck {self.saved_deck}\n' \
                f'mana {self.available_mana}\n' \
                f'float mana {self.floating_mana}\n' \
-               f'picked card: {self.picked_up_card.name}'
+
 
 
 class NpcOpponent(Player):
@@ -313,10 +310,10 @@ class NpcOpponent(Player):
         self.hand_pos_y = 0.05
 
         self.turn_counter = 1
-
+        
+    # hardcoded AI
     def next_phase(self):  # npc will have its onew next_phase methode. all the actions has to be automated.
         self.current_phase = next(self.turn_phases)  # cycles over turn phases.
-        print(self.name, self.current_phase)
         if self.current_phase == "untap":
             self.untap_cards()
 
@@ -361,21 +358,42 @@ class NpcOpponent(Player):
                                 self.play_card()
 
         if self.current_phase == "attack":
-            card_that_can_attack = []
-            available_targets = []
+            pair_up_cards = []  # will pair up the cards in tuples.
+            cards_that_can_attack = []
+            cards_for_target = []
+
+            # first find all cards that can attack.
             for card in self.cards_in_battle_zone:
                 if not card.summoning_sickness:
-                    if not card.is_tapped:
-                        card_that_can_attack.append(card)
+                    if not card.is_used:
+                        if not card.is_tapped:
+                            cards_that_can_attack.append(card)
 
+            # then find all available targets.
             for card in self.enemy.cards_in_battle_zone:
+                print('player battlezone ', card.name)
                 if not card.is_tapped:
-                    available_targets.append(card)
+                    cards_for_target.append(card)
+
+            # find the best target for available target
+            for card in cards_that_can_attack:  # check every card
+                for target in cards_for_target:  # check card vs a target.
+                    if card.power > target.power:  # if the card has higher power than the target its a good fight.
+                        pair_up_cards.append((card, target))
+                        print('good target')
+                    elif card.power == target.power:
+                        print('trade')
 
 
+            # if npc has more shields than player attackers.
+            # for card in cards_that_can_attack:
+            #     if len(self.shields) > len(self.enemy.cards_in_battle_zone):
+            #         # attack a shield
+            #         shield_card = random.choice(self.enemy.shields)
+            #         print(card.name, 'attack shield', shield_card)
+            #         card.fight(shield_card)
 
-
-
+            print(pair_up_cards)
 
         if self.current_phase is None:
             self.turn_counter += 1

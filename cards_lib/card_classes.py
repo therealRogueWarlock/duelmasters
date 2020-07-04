@@ -2,10 +2,7 @@
 from cards_lib.card_dictionary import card_dict
 from load_sprits import sprite_loader
 import pygame
-
-
-infos = pygame.display.Info()
-screen_size = (infos.current_w, infos.current_h)
+from utils import percent_of_screen_width, percent_of_screen_height
 
 
 # CardsDict will handle all data about the cards.
@@ -26,6 +23,8 @@ class CardsDict:
                     return civilization
 
 
+
+
 cards_dict_class = CardsDict()
 
 
@@ -42,15 +41,15 @@ class ACard:
 
         # card properties.
         self.img = card_dict[self.civilization][self.name]["img"]
-        self.info_img = pygame.transform.scale(self.img, (int(screen_size[0] * 0.159), int(screen_size[1] * 0.381)))
+        self.info_img = pygame.transform.scale(self.img, (percent_of_screen_width(15.9), percent_of_screen_height(38.1)))
         self.card_back_img = sprite_loader.card_back
 
         self.pos_xy = (0, 0)
         self.pos_index = 0
 
         # card size
-        self.width = int(screen_size[0] * 0.053)  # 100
-        self.height = int(screen_size[1] * 0.127)   # 138
+        self.width = percent_of_screen_width(5.3)
+        self.height = percent_of_screen_height(12.7)
 
         # if the card i clicked by the mouse and can be picked up.
         self.is_picked_up = False
@@ -96,19 +95,22 @@ class ACard:
         self.owner.put_card_in_graveyard(self)
         self.is_in_graveyard()
 
-    def fight(self, card):
-        print(f'{self.name}, power {self.power} fights {card.name},  power {card.power}')
+    def fight(self, target_card):
 
-        if self.power > card.power:
-            print(f'{self.name} wins')
-            card.destroy()
-        elif self.power == card.power:
-            print(f'both die')
-            self.destroy()
-            card.destroy()
+        if target_card.in_shield_zone:
+            self.owner.enemy.put_shield_in_hand(target_card)
+
         else:
-            print(f'{card.name} wins')
-            self.destroy()
+            if self.power > target_card.power:
+                print(f'{self.name} wins')
+                target_card.destroy()
+            elif self.power == target_card.power:
+                print(f'both die')
+                self.destroy()
+                target_card.destroy()
+            else:
+                print(f'{target_card.name} wins')
+                self.destroy()
 
     def set_all_zones_to_false(self):
         self.in_graveyard = False
@@ -122,8 +124,8 @@ class ACard:
         self.set_all_zones_to_false()
         # makes the image smaller, will fit better in manazone
         self.img = pygame.transform.chop(self.img, (0, 45, 0, 215))
-        self.width = int(screen_size[0] * 0.053)  # 100
-        self.height = int(screen_size[1] * 0.035)  # 37
+        self.width = percent_of_screen_width(5.3)
+        self.height = percent_of_screen_height(3.5)
         self.in_mana_zone = True
 
     def is_in_hand(self):
@@ -136,8 +138,8 @@ class ACard:
 
     def is_in_battle_zone(self):
         self.set_all_zones_to_false()
-        self.width = int(screen_size[0] * 0.053)  # 100
-        self.height = int(screen_size[1] * 0.127)  # 138
+        self.width = percent_of_screen_width(5.3)
+        self.height = percent_of_screen_height(12.7)
         self.in_battle_zone = True
 
     def is_in_graveyard(self):
@@ -161,7 +163,7 @@ class ACard:
             if not self.in_mana_zone:
                 pygame.draw.rect(window, (250, 0, 0),
                                  (self.pos_xy[0] - 5, self.pos_xy[1] - 5, self.width + 10, self.height + 10))
-                window.blit(self.info_img, (int(screen_size[0] * 0.825), int(screen_size[1] * 0.363)))
+                window.blit(self.info_img, (percent_of_screen_width(82.5), percent_of_screen_height(36.3)))
 
         if not self.in_shield_zone:
 
@@ -173,19 +175,16 @@ class ACard:
                 card_img = pygame.transform.rotozoom(card_img, -90, 1)
 
             # if the card is clicked it will be highlighted.
-
-
             if self.is_picked_up:
                 # if that card is picked up, the card will get mouse pos.
                 window.blit(card_img, self.set_position_to(player_mouse_pos))
 
             if self.hover_over:
-                window.blit(self.info_img, (int(screen_size[0] * 0.625), int(screen_size[1] * 0.363)))
+                window.blit(self.info_img, (percent_of_screen_width(62.5), percent_of_screen_height(30)))
 
             window.blit(card_img, self.pos_xy)
         else:
             window.blit(self.card_back_img, self.pos_xy)
-
 
     # functions for logic.
     def mouse_is_over(self, pos):
@@ -198,9 +197,9 @@ class ACard:
         return False
 
     def is_clicked(self):
-        print(self.name, 'is clicked')
         if self.in_hand:
             self.is_picked_up = True
+
         if self.in_mana_zone:
             if not self.is_tapped:
                 self.is_tapped = True
@@ -215,4 +214,3 @@ class ACard:
         else:
             self.is_clicked_bool = False
             self.is_tapped = False
-
