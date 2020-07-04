@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blit.py" beforeDir="false" afterPath="$PROJECT_DIR$/blit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cards_lib/card_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/cards_lib/card_classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/load_sprits.py" beforeDir="false" afterPath="$PROJECT_DIR$/load_sprits.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/renamer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zones.py" beforeDir="false" afterPath="$PROJECT_DIR$/zones.py" afterDir="false" />
     </list>
     <list id="c66bbc84-2128-4572-926b-df1100505a08" name="Working on npc logic" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -181,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593546071391</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="updated features in players hand player can now switch cards around +. &#10;working on attacking, and npc attacking.">
+      <created>1593862398591</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1593862398591</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -212,10 +214,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="243" y="326" key="#com.intellij.fileTypes.FileTypeChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593614988564" />
-    <state x="141" y="114" width="1410" height="841" key="CommitChangelistDialog2" timestamp="1593546070918">
+    <state x="141" y="114" width="1410" height="841" key="CommitChangelistDialog2" timestamp="1593862398071">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="141" y="114" width="1410" height="841" key="CommitChangelistDialog2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593546070918" />
+    <state x="141" y="114" width="1410" height="841" key="CommitChangelistDialog2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593862398071" />
     <state x="279" y="278" key="FileChooserDialogImpl" timestamp="1592248402223">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -224,26 +226,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="320" y="424" key="GitRewordDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212252903" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593787399445">
+    <state width="838" height="953" key="GridCell.Tab.0.bottom" timestamp="1593903824098">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118794" />
-    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399445" />
-    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593787399445">
+    <state width="838" height="953" key="GridCell.Tab.0.bottom/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593903824098" />
+    <state width="838" height="953" key="GridCell.Tab.0.center" timestamp="1593903824098">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118793" />
-    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399445" />
-    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593787399445">
+    <state width="838" height="953" key="GridCell.Tab.0.center/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593903824098" />
+    <state width="838" height="953" key="GridCell.Tab.0.left" timestamp="1593903824098">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118793" />
-    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399445" />
-    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593787399445">
+    <state width="838" height="953" key="GridCell.Tab.0.left/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593903824098" />
+    <state width="838" height="953" key="GridCell.Tab.0.right" timestamp="1593903824098">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593285118793" />
-    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399445" />
+    <state width="838" height="953" key="GridCell.Tab.0.right/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593903824098" />
     <state width="936" height="344" key="GridCell.Tab.1.bottom" timestamp="1593623920489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -273,20 +275,20 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="327" y="439" key="VCS.ChangelistChooser/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593212237592" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593807399881">
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog" timestamp="1593899219010">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593283332569" />
-    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593807399881" />
+    <state x="-1144" y="361" key="com.intellij.ide.util.TipDialog/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593899219010" />
     <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593267549138">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="296" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593267549138" />
-    <state x="953" y="0" width="974" height="1047" maximized="true" key="dock-window-1" timestamp="1593787399474">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-847" y="32" width="854" height="1017" key="dock-window-1" timestamp="1593899840118">
+      <screen x="-1680" y="32" width="1680" height="1010" />
     </state>
     <state x="168" y="207" width="974" height="1047" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@-1680.32.1680.1010" timestamp="1593283394903" />
-    <state x="953" y="0" width="974" height="1047" maximized="true" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593787399474" />
+    <state x="-847" y="32" width="854" height="1017" key="dock-window-1/-1680.32.1680.1010/0.0.1920.1040@0.0.1920.1040" timestamp="1593899840118" />
     <state x="-847" y="32" width="854" height="1017" key="dock-window-2" timestamp="1593249256855">
       <screen x="-1680" y="32" width="1680" height="1010" />
     </state>

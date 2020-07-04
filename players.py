@@ -4,6 +4,8 @@ import pygame
 from zones import zones_class
 import itertools
 from cards_lib import card_classes
+from utils import percent_of_screen_width, percent_of_screen_height
+
 
 infos = pygame.display.Info()
 screen_size = (infos.current_w, infos.current_h)
@@ -129,17 +131,26 @@ class Player:
             positions_in_hand = [((int(screen_size[0] * (self.hand_pos_x[0] - (0.025 * hand_size)) + x * int(screen_size[0] * 0.051))),
                                   int(screen_size[1] * self.hand_pos_y)) for x in range(hand_size)]
 
-        # creats a list of positions according to hand width and hand size.
+        # creats a list of positions according to hand img_width and hand size.
         else:
             max_hand_width = screen_width*0.3125   # the width of the hand is max 31 % of the screen.
 
             hand_spot_size = int(max_hand_width / hand_size)  # the size of the spots are determent by hand size-
 
-            overlap = max_hand_width/hand_spot_size  # overlap is how much the cards overlap.
+            # overlap is how much the cards overlap.
+            overlap = percent_of_screen_width(5.3) - hand_spot_size
+
+            for card in self.cards_in_hand:  # reduce the card box my overlap size.
+
+                card.width = percent_of_screen_width(5.3) - overlap
+
+                if card == self.cards_in_hand[-1]:  # if its the last card in hand, no need to make the box smaller.
+                    card.width = percent_of_screen_width(5.3)
 
             for x in range(hand_size):  # create a list the size of the hand.
 
-                move_hand_left = int(screen_width * self.hand_pos_x[1] + (hand_spot_size / 3))  # the position of the hand on x-
+                # the position of the hand on x-axes
+                move_hand_left = int(screen_width * self.hand_pos_x[1] + (hand_spot_size / 3))
 
                 card_pos_x = move_hand_left + hand_spot_size * x
 
@@ -244,9 +255,12 @@ class Player:
         for card in (self.cards_in_battle_zone + self.cards_in_mana_zone):
             card.is_tapped = False
             card.summoning_sickness = False
+            card.width = percent_of_screen_width(5.3)
+            card.height = percent_of_screen_height(3.5)
+
         self.if_charged_mana = False
 
-    def main(self):
+    def main_step(self):
         # can play cards with mana.
         pass
 
@@ -384,16 +398,15 @@ class NpcOpponent(Player):
                     elif card.power == target.power:
                         print('trade')
 
-
             # if npc has more shields than player attackers.
-            # for card in cards_that_can_attack:
-            #     if len(self.shields) > len(self.enemy.cards_in_battle_zone):
-            #         # attack a shield
-            #         shield_card = random.choice(self.enemy.shields)
-            #         print(card.name, 'attack shield', shield_card)
-            #         card.fight(shield_card)
-
-            print(pair_up_cards)
+            for card in cards_that_can_attack:
+                if len(self.shields) > len(self.enemy.cards_in_battle_zone):
+                    # attack a shield
+                    shield_card = random.choice(self.enemy.shields)
+                    print(card.name, 'attack shield', shield_card)
+                    card.fight(shield_card)
+            for pair in pair_up_cards:
+                print(pair[0].name, pair[1].name)
 
         if self.current_phase is None:
             self.turn_counter += 1

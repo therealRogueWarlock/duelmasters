@@ -56,9 +56,11 @@ class Main:
                             if self.double_click_clock.tick() < self.wait_time:
                                 if player.current_phase == "attack":
                                     if card in player.cards_in_battle_zone:
-                                        card.is_double_clicked()
-                                        player.selected_card = card
-                                        print(player.selected_card.name, card.owner)
+                                        if not card.is_tapped:
+                                            if not card.summoning_sickness:
+                                                card.is_double_clicked()
+                                                player.selected_card = card
+                                                print(player.selected_card.name, card.owner)
 
                                     if card in npc.cards_in_battle_zone + npc.shields:
                                         card.is_clicked_bool = True

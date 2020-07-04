@@ -23,8 +23,6 @@ class CardsDict:
                     return civilization
 
 
-
-
 cards_dict_class = CardsDict()
 
 
@@ -46,6 +44,10 @@ class ACard:
 
         self.pos_xy = (0, 0)
         self.pos_index = 0
+
+        # card img size
+        self.img_width = percent_of_screen_width(5.3)
+        self.img_height = percent_of_screen_height(12.7)
 
         # card size
         self.width = percent_of_screen_width(5.3)
@@ -96,6 +98,8 @@ class ACard:
         self.is_in_graveyard()
 
     def fight(self, target_card):
+        self.is_tapped = True
+        self.is_used = True
 
         if target_card.in_shield_zone:
             self.owner.enemy.put_shield_in_hand(target_card)
@@ -123,7 +127,9 @@ class ACard:
         print("card is in mana zone")
         self.set_all_zones_to_false()
         # makes the image smaller, will fit better in manazone
-        self.img = pygame.transform.chop(self.img, (0, 45, 0, 215))
+        self.img = pygame.transform.chop(self.img, (0, 45, 0, 325))
+        self.img_width = percent_of_screen_width(5.3)
+        self.img_height = percent_of_screen_height(3.5)
         self.width = percent_of_screen_width(5.3)
         self.height = percent_of_screen_height(3.5)
         self.in_mana_zone = True
@@ -138,6 +144,8 @@ class ACard:
 
     def is_in_battle_zone(self):
         self.set_all_zones_to_false()
+        self.img_width = percent_of_screen_width(5.3)
+        self.img_height = percent_of_screen_height(12.7)
         self.width = percent_of_screen_width(5.3)
         self.height = percent_of_screen_height(12.7)
         self.in_battle_zone = True
@@ -147,7 +155,7 @@ class ACard:
 
     def set_position_to(self, new_pos):
         if self.is_picked_up:  # centering the card on the mouse.
-            self.pos_xy = new_pos[0] - (self.width / 2), new_pos[1] - (self.height / 2)
+            self.pos_xy = new_pos[0] - (self.img_width / 2), new_pos[1] - (self.img_height / 2)
             return self.pos_xy
 
         self.pos_xy = new_pos
@@ -157,7 +165,7 @@ class ACard:
     # create a function to blit it self.
     def blit_card(self, player_mouse_pos, window):
         # getting the img to blit, and resizing it.
-        card_img = pygame.transform.scale(self.img, (self.width, self.height))
+        card_img = pygame.transform.scale(self.img, (self.img_width, self.img_height))
 
         if self.is_clicked_bool:
             if not self.in_mana_zone:
@@ -172,7 +180,7 @@ class ACard:
 
             if self.is_tapped:
                 # rotating the card 90 degrees if the card is tapped.
-                card_img = pygame.transform.rotozoom(card_img, -90, 1)
+                card_img = pygame.transform.rotate(card_img, -90)
 
             # if the card is clicked it will be highlighted.
             if self.is_picked_up:
@@ -183,8 +191,21 @@ class ACard:
                 window.blit(self.info_img, (percent_of_screen_width(62.5), percent_of_screen_height(30)))
 
             window.blit(card_img, self.pos_xy)
+
         else:
             window.blit(self.card_back_img, self.pos_xy)
+
+    def tap(self):
+        if not self.is_tapped:
+            self.is_tapped = True
+            self.width = percent_of_screen_height(3.5)
+            self.height = percent_of_screen_width(5.3)
+
+        else:
+            self.is_tapped = False
+            self.width = percent_of_screen_width(5.3)
+            self.height = percent_of_screen_height(3.5)
+
 
     # functions for logic.
     def mouse_is_over(self, pos):
@@ -201,16 +222,12 @@ class ACard:
             self.is_picked_up = True
 
         if self.in_mana_zone:
-            if not self.is_tapped:
-                self.is_tapped = True
-            else:
-                self.is_tapped = False
+            self.tap()
 
     def is_double_clicked(self):
         print(self.name, 'is double clicked')
         if not self.is_clicked_bool:
             self.is_clicked_bool = True
-            self.is_tapped = True
         else:
             self.is_clicked_bool = False
-            self.is_tapped = False
+
