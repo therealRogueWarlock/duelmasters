@@ -59,6 +59,8 @@ class Player:
         self.positions_in_manazone = zones_class.manazone.positions_player
         self.positions_in_shieldzone = zones_class.shieldzone.positions_player
 
+        self.graveyard_position = (percent_of_screen_width(65), percent_of_screen_height(80))
+
         self.hand_pos_x = (0.465, 0.29)
         self.hand_pos_y = 0.91
 
@@ -69,6 +71,13 @@ class Player:
         self.if_charged_mana = False
 
         self.enemy = None
+
+        # defining fonts for player info.
+        self.font_for_phase_info = pygame.font.SysFont('comicsand', 30, True)
+
+        self.font_for_info = pygame.font.SysFont('comicsand', 30, True)
+
+        self.font_for_mana_info = pygame.font.SysFont('comicsand', 30, True)
 
     def shuffle_deck(self):
         return random.shuffle(self.deck_list)
@@ -187,12 +196,18 @@ class Player:
         card.is_clicked_bool = False
 
         card.pos_index = len(self.cards_in_graveyard)
+
+        card.set_position_to(self.graveyard_position)  # needs to be pos of graveyard
+
         card.set_position_to((1000, 800))  # needs to be pos of graveyard
+
         self.cards_in_graveyard.append(card)
 
         card.is_in_graveyard()
 
     def play_card(self):
+        print(f"{self.name} tries to play's {self.picked_up_card.name}")
+
         # TODO should be able to auto tap mana, when playing a card.
         print(f"{self.name} play's {self.picked_up_card.name}")
         # first check if players floating mana meets the cards requirements.
@@ -211,7 +226,7 @@ class Player:
                 self.cards_in_hand.remove(self.picked_up_card)
                 self.picked_up_card = None
                 # needs to only use mana consumed by the card, atm just reset floating mana after play.
-                # self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0}  # really needs a FIX!
+                self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0}  # really needs a FIX!
         else:
             print("mana requirements not met.")
 
@@ -248,12 +263,16 @@ class Player:
             if not self.turn_counter == 0:  # if not starting draw card.
                 self.draw_a_card()
 
+        if self.current_phase == "attack":
+            self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0}
+
         if self.current_phase is None:
             self.turn_counter += 1
 
     def untap_cards(self):
         for card in (self.cards_in_battle_zone + self.cards_in_mana_zone):
             card.is_tapped = False
+            card.is_used = False
             card.summoning_sickness = False
             card.width = percent_of_screen_width(5.3)
             card.height = percent_of_screen_height(3.5)
@@ -291,6 +310,7 @@ class Player:
     def info(self):
         return f'picked card: {self.picked_up_card}'
 
+
     def player_info(self):
         return f'player decklist ({len(self.deck_list)}): {[card.name for card in self.deck_list]}\n' \
                f'player hand ({len(self.cards_in_hand)}): {[card.name for card in self.cards_in_hand]}\n' \
@@ -320,13 +340,16 @@ class NpcOpponent(Player):
         self.positions_in_manazone = zones_class.manazone.positions_npc
         self.positions_in_shieldzone = zones_class.shieldzone.positions_npc
 
+        self.graveyard_position = (percent_of_screen_width(35), percent_of_screen_height(80))
+
         self.hand_pos_x = (0.665, 0.29)
         self.hand_pos_y = 0.05
 
         self.turn_counter = 1
-        
+
     # hardcoded AI
     def next_phase(self):  # npc will have its onew next_phase methode. all the actions has to be automated.
+
         self.current_phase = next(self.turn_phases)  # cycles over turn phases.
         if self.current_phase == "untap":
             self.untap_cards()
@@ -337,7 +360,7 @@ class NpcOpponent(Player):
 
         if self.current_phase == "charge":
             # TODO need more logic
-            if len(self.cards_in_hand) > 1:
+            if len(self.cards_in_hand) > 2:
                 if len(self.cards_in_mana_zone) < 6:
                     max_mana_cost = 0
                     for card in npc.cards_in_hand:
@@ -347,6 +370,22 @@ class NpcOpponent(Player):
                     self.put_card_in_mana_zone()
 
         if self.current_phase == "main":
+            available_mana = self.available_mana['Fire']  # plays with mono color.
+
+            # sorting cards in hand by mana cost in a new list.
+            sorted_by_mana_cost = sorted(self.cards_in_hand, key=lambda card: card.mana_cost, reverse=True)
+
+            for card in sorted_by_mana_cost:
+                if card.mana_cost <= available_mana:
+                    self.picked_up_card = card
+
+                    while self.floating_mana['Fire'] != self.picked_up_card.mana_cost:
+                        for card in self.cards_in_mana_zone:
+                            if not card.is_tapped:
+                                card.is_clicked()
+
+                    available_mana -= self.picked_up_card.mana_cost
+                    self.play_card()
             if len(self.cards_in_mana_zone) >= 1:
 
                 available_mana = len(self.cards_in_mana_zone)
@@ -383,6 +422,7 @@ class NpcOpponent(Player):
                         if not card.is_tapped:
                             cards_that_can_attack.append(card)
 
+            print(f'{self.name}, can attack with {[card.name for card in cards_that_can_attack]}')
             # then find all available targets.
             for card in self.enemy.cards_in_battle_zone:
                 print('player battlezone ', card.name)
@@ -402,9 +442,17 @@ class NpcOpponent(Player):
             for card in cards_that_can_attack:
                 if len(self.shields) > len(self.enemy.cards_in_battle_zone):
                     # attack a shield
+                    if not len(self.enemy.shields) == 0:
+                        shield_card = random.choice(self.enemy.shields)
+                        print(card.name, 'attack shield', shield_card.pos_index)
+                        card.fight(shield_card)
+                    else:
+                        print(f'{self.name} wins!')
+
                     shield_card = random.choice(self.enemy.shields)
                     print(card.name, 'attack shield', shield_card)
                     card.fight(shield_card)
+
             for pair in pair_up_cards:
                 print(pair[0].name, pair[1].name)
 

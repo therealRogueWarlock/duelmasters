@@ -13,6 +13,23 @@ class SpriteLoader:
 
         self.card_back_raw = pygame.image.load("Sprits/pic43176.jpg")
 
+        self.civilization_ikons = {}
+
+        self.darkness_small = pygame.image.load("Sprits/darkness_small.png")
+
+        self.fire_small = pygame.image.load("Sprits/fire_small.png")
+
+        self.light_small = pygame.image.load("Sprits/light_small.png")
+
+        self.nature_small = pygame.image.load("Sprits/nature_small.png")
+
+        self.water_small = pygame.image.load("Sprits/water_small.png")
+
+        self.civilization_ikons = {'Darkness': self.darkness_small,
+                                   'Fire': self.fire_small, 'Light': self.light_small,
+                                   'Nature': self.nature_small, 'Water': self.water_small}
+
+
         self.card_back = pygame.transform.scale(self.card_back_raw,
                                                 (percent_of_screen_width(5.2), percent_of_screen_height(13)))
 

@@ -72,8 +72,9 @@ class ACard:
         self.in_mana_zone = False
         self.in_shield_zone = False
 
-        self.is_clicked_bool = False
+        self.is_selected_bool = False
 
+        self.is_clicked_bool = False
         # check how owns the card.
         self.owner = None
 
@@ -96,6 +97,24 @@ class ACard:
         # calls the owner to put the card in the graveyard.
         self.owner.put_card_in_graveyard(self)
         self.is_in_graveyard()
+
+    def fight(self, target):
+        self.is_tapped = True
+        self.is_used = True
+
+        if target.in_shield_zone:
+            self.owner.enemy.put_shield_in_hand(target)
+
+        else:
+            if self.power > target.power:
+                print(f'{self.name} wins')
+                target.destroy()
+            elif self.power == target.power:
+                print(f'both die')
+                self.destroy()
+                target.destroy()
+            else:
+                print(f'{target.name} wins')
 
     def fight(self, target_card):
         self.is_tapped = True
@@ -221,6 +240,17 @@ class ACard:
             self.is_picked_up = True
 
         if self.in_mana_zone:
+            if self.owner.current_phase == "main":
+                # order is important .float_mana will check if the card is tapped.
+                self.tap()
+                self.owner.float_mana(self)
+
+    def is_double_clicked(self):
+        print(self.name, 'is double clicked')
+        if not self.is_selected_bool:
+            self.is_selected_bool = True
+        else:
+            self.is_selected_bool = False
             self.tap()
 
     def is_double_clicked(self):
@@ -229,4 +259,5 @@ class ACard:
             self.is_clicked_bool = True
         else:
             self.is_clicked_bool = False
+
 
