@@ -206,7 +206,6 @@ class ACard:
             self.width = percent_of_screen_width(5.3)
             self.height = percent_of_screen_height(3.5)
 
-
     # functions for logic.
     def mouse_is_over(self, pos):
         # Pos is the mouse position or a tuple of (x,y) coordinates
