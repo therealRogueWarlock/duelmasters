@@ -98,24 +98,6 @@ class ACard:
         self.owner.put_card_in_graveyard(self)
         self.is_in_graveyard()
 
-    def fight(self, target):
-        self.is_tapped = True
-        self.is_used = True
-
-        if target.in_shield_zone:
-            self.owner.enemy.put_shield_in_hand(target)
-
-        else:
-            if self.power > target.power:
-                print(f'{self.name} wins')
-                target.destroy()
-            elif self.power == target.power:
-                print(f'both die')
-                self.destroy()
-                target.destroy()
-            else:
-                print(f'{target.name} wins')
-
     def fight(self, target_card):
         self.is_tapped = True
         self.is_used = True
@@ -252,12 +234,3 @@ class ACard:
         else:
             self.is_selected_bool = False
             self.tap()
-
-    def is_double_clicked(self):
-        print(self.name, 'is double clicked')
-        if not self.is_clicked_bool:
-            self.is_clicked_bool = True
-        else:
-            self.is_clicked_bool = False
-
-

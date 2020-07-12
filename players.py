@@ -371,6 +371,7 @@ class NpcOpponent(Player):
 
         if self.current_phase == "main":
             available_mana = self.available_mana['Fire']  # plays with mono color.
+            print(f'npc mana {available_mana}')
 
             # sorting cards in hand by mana cost in a new list.
             sorted_by_mana_cost = sorted(self.cards_in_hand, key=lambda card: card.mana_cost, reverse=True)
@@ -379,36 +380,15 @@ class NpcOpponent(Player):
                 if card.mana_cost <= available_mana:
                     self.picked_up_card = card
 
-                    while self.floating_mana['Fire'] != self.picked_up_card.mana_cost:
-                        for card in self.cards_in_mana_zone:
-                            if not card.is_tapped:
-                                card.is_clicked()
+                    for card in self.cards_in_mana_zone:
+                        if not card.is_tapped:
+                            print(f'npc tap {card.name}')
+                            card.is_clicked()
 
+                        if self.floating_mana['Fire'] == self.picked_up_card.mana_cost:
+                            break
                     available_mana -= self.picked_up_card.mana_cost
                     self.play_card()
-            if len(self.cards_in_mana_zone) >= 1:
-
-                available_mana = len(self.cards_in_mana_zone)
-
-                lowest_mana_cost = 0
-
-                while available_mana >= lowest_mana_cost:
-
-                    lowest_mana_cost = 10
-
-                    for card in self.cards_in_hand:
-                        if card.mana_cost < lowest_mana_cost:
-
-                            lowest_mana_cost = card.mana_cost
-                            print(card.name)
-                            self.picked_up_card = card
-
-                            if available_mana >= lowest_mana_cost:
-                                for i in range(lowest_mana_cost):
-                                    self.cards_in_mana_zone[i].is_clicked()
-                                    self.float_mana(self.cards_in_mana_zone[i])
-                                available_mana -= self.picked_up_card.mana_cost
-                                self.play_card()
 
         if self.current_phase == "attack":
             pair_up_cards = []  # will pair up the cards in tuples.
@@ -448,10 +428,6 @@ class NpcOpponent(Player):
                         card.fight(shield_card)
                     else:
                         print(f'{self.name} wins!')
-
-                    shield_card = random.choice(self.enemy.shields)
-                    print(card.name, 'attack shield', shield_card)
-                    card.fight(shield_card)
 
             for pair in pair_up_cards:
                 print(pair[0].name, pair[1].name)
