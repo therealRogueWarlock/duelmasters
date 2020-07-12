@@ -353,10 +353,6 @@ class NpcOpponent(Player):
         self.turn_counter = 1
 
     # hardcoded AI
-    def next_phase(self):  # npc will have its own next_phase methode. all the actions has to be automated.
-
-        
-    # hardcoded AI
     def next_phase(self):  # npc will have its onew next_phase methode. all the actions has to be automated.
 
         self.current_phase = next(self.turn_phases)  # cycles over turn phases.
