@@ -72,7 +72,11 @@ class ACard:
         self.in_mana_zone = False
         self.in_shield_zone = False
 
+<<<<<<< HEAD
         self.is_selected_bool = False
+=======
+        self.is_clicked_bool = False
+>>>>>>> 8063ee84b47b336198c2258fc739d497561d44a7
 
         # check how owns the card.
         self.owner = None
@@ -97,6 +101,7 @@ class ACard:
         self.owner.put_card_in_graveyard(self)
         self.is_in_graveyard()
 
+<<<<<<< HEAD
     def fight(self, target):
         self.is_tapped = True
         self.is_used = True
@@ -114,6 +119,25 @@ class ACard:
                 target.destroy()
             else:
                 print(f'{target.name} wins')
+=======
+    def fight(self, target_card):
+        self.is_tapped = True
+        self.is_used = True
+
+        if target_card.in_shield_zone:
+            self.owner.enemy.put_shield_in_hand(target_card)
+
+        else:
+            if self.power > target_card.power:
+                print(f'{self.name} wins')
+                target_card.destroy()
+            elif self.power == target_card.power:
+                print(f'both die')
+                self.destroy()
+                target_card.destroy()
+            else:
+                print(f'{target_card.name} wins')
+>>>>>>> 8063ee84b47b336198c2258fc739d497561d44a7
                 self.destroy()
 
     def set_all_zones_to_false(self):
@@ -167,7 +191,11 @@ class ACard:
         # getting the img to blit, and resizing it.
         card_img = pygame.transform.scale(self.img, (self.img_width, self.img_height))
 
+<<<<<<< HEAD
         if self.is_selected_bool:
+=======
+        if self.is_clicked_bool:
+>>>>>>> 8063ee84b47b336198c2258fc739d497561d44a7
             if not self.in_mana_zone:
                 pygame.draw.rect(window, (250, 0, 0),
                                  (self.pos_xy[0] - 5, self.pos_xy[1] - 5, self.width + 10, self.height + 10))
@@ -206,6 +234,10 @@ class ACard:
             self.width = percent_of_screen_width(5.3)
             self.height = percent_of_screen_height(3.5)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8063ee84b47b336198c2258fc739d497561d44a7
     # functions for logic.
     def mouse_is_over(self, pos):
         # Pos is the mouse position or a tuple of (x,y) coordinates
@@ -221,6 +253,7 @@ class ACard:
             self.is_picked_up = True
 
         if self.in_mana_zone:
+<<<<<<< HEAD
             if self.owner.current_phase == "main":
                 # order is important .float_mana will check if the card is tapped.
                 self.tap()
@@ -232,4 +265,14 @@ class ACard:
             self.is_selected_bool = True
         else:
             self.is_selected_bool = False
+=======
+            self.tap()
+
+    def is_double_clicked(self):
+        print(self.name, 'is double clicked')
+        if not self.is_clicked_bool:
+            self.is_clicked_bool = True
+        else:
+            self.is_clicked_bool = False
+>>>>>>> 8063ee84b47b336198c2258fc739d497561d44a7
 

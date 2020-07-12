@@ -11,19 +11,29 @@ import itertools
 # DrawGame will handle all drawing to the screen.
 class BlitGame:
     def __init__(self):
+
         self.font_for_phase_info = pygame.font.SysFont('comicsand', 30, True)
         self.font_for_info = pygame.font.SysFont('comicsand', 30, True)
         self.font_for_mana_info = pygame.font.SysFont('comicsand', 30, True)
+
+        infos = pygame.display.Info()
+        self.screen_size = (infos.current_w, infos.current_h)
+
+        self.font_for_info = pygame.font.SysFont('comicsand', 30, True)
 
         self.fullscreen = True
         self.playingfield_resized = \
             pygame.transform.scale(sprite_loader.playing_field,
                                    (percent_of_screen_width(100), percent_of_screen_height(100)))
 
+
         self.window = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 
         infos = pygame.display.Info()
         self.screen_size = (infos.current_w, infos.current_h)
+
+        self.counter = itertools.cycle([0, 1, 2, 3, 4])  # creating a recyclable counter for printing indexes.
+        self.window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
         pygame.display.set_caption('Duel Masters')
 
@@ -67,7 +77,6 @@ class BlitGame:
         pass
 
     def blit_info(self):
-
         # blitting info for floating mana.
         index = 0
         for civilization in player.floating_mana:
@@ -87,6 +96,10 @@ class BlitGame:
         self.window.blit(text, (percent_of_screen_width(88), percent_of_screen_height(87)))
 
         text = self.font_for_phase_info.render(npc.current_phase, 1, (0, 0, 0))
+        text = self.font_for_info.render(player.current_phase, 1, (0, 0, 0))
+        self.window.blit(text, (percent_of_screen_width(88), percent_of_screen_height(87)))
+
+        text = self.font_for_info.render(npc.current_phase, 1, (0, 0, 0))
         self.window.blit(text, (percent_of_screen_width(88), percent_of_screen_height(20)))
 
     def blit_buttons(self):

@@ -69,6 +69,9 @@ class Main:
                                         print(player.target_card.name, card.owner)
 
                             # check if card is in hand, the card is now picked up.
+                            if card.in_mana_zone:
+                                player.float_mana(card)  # self.player will float mana from the card if not tapped.
+
                             if card.in_hand:
                                 player.picked_up_card = card
 
@@ -119,6 +122,7 @@ class Main:
                 if event.key == pygame.K_SPACE:
                     if player.current_phase is not None:  # player can go to next phase if its players turn.
                         player.next_phase()
+
 
                 if event.key == pygame.K_r:
                     npc.setup()

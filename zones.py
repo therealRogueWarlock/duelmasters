@@ -1,7 +1,7 @@
 # This module will contain classes for the zones. might not make sens to make.
 import pygame
 from utils import percent_of_screen_width, percent_of_screen_height
-import itertools
+
 
 class Zones:
     def __init__(self):

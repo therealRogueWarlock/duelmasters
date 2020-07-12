@@ -59,6 +59,7 @@ class Player:
         self.positions_in_manazone = zones_class.manazone.positions_player
         self.positions_in_shieldzone = zones_class.shieldzone.positions_player
 
+
         self.graveyard_position = (percent_of_screen_width(65), percent_of_screen_height(80))
 
         self.hand_pos_x = (0.465, 0.29)
@@ -71,6 +72,7 @@ class Player:
         self.if_charged_mana = False
 
         self.enemy = None
+
 
         # defining fonts for player info.
         self.font_for_phase_info = pygame.font.SysFont('comicsand', 30, True)
@@ -196,13 +198,21 @@ class Player:
         card.is_clicked_bool = False
 
         card.pos_index = len(self.cards_in_graveyard)
+
         card.set_position_to(self.graveyard_position)  # needs to be pos of graveyard
+
+        card.set_position_to((1000, 800))  # needs to be pos of graveyard
+
         self.cards_in_graveyard.append(card)
 
         card.is_in_graveyard()
 
     def play_card(self):
         print(f"{self.name} tries to play's {self.picked_up_card.name}")
+
+        # TODO should be able to auto tap mana, when playing a card.
+        print(f"{self.name} play's {self.picked_up_card.name}")
+
         # first check if players floating mana meets the cards requirements.
         # check if the player has at least one mana of the right color.
         if self.floating_mana[self.picked_up_card.civilization] >= 1:
@@ -210,7 +220,7 @@ class Player:
             for civilization in self.floating_mana:
                 total_floting_mana += self.floating_mana[civilization]
 
-            if total_floting_mana == self.picked_up_card.mana_cost:
+            if total_floting_mana >= self.picked_up_card.mana_cost:
                 self.picked_up_card.is_picked_up = False
                 self.picked_up_card.is_in_battle_zone()
                 self.picked_up_card.pos_index = len(self.cards_in_battle_zone)
@@ -220,6 +230,7 @@ class Player:
                 self.picked_up_card = None
                 # needs to only use mana consumed by the card, atm just reset floating mana after play.
                 self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0}  # really needs a FIX!
+
         else:
             print("mana requirements not met.")
 
@@ -258,6 +269,7 @@ class Player:
 
         if self.current_phase == "attack":
             self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0}
+
 
         if self.current_phase is None:
             self.turn_counter += 1
@@ -342,6 +354,11 @@ class NpcOpponent(Player):
 
     # hardcoded AI
     def next_phase(self):  # npc will have its own next_phase methode. all the actions has to be automated.
+
+        
+    # hardcoded AI
+    def next_phase(self):  # npc will have its onew next_phase methode. all the actions has to be automated.
+
         self.current_phase = next(self.turn_phases)  # cycles over turn phases.
         if self.current_phase == "untap":
             self.untap_cards()
@@ -378,6 +395,29 @@ class NpcOpponent(Player):
 
                     available_mana -= self.picked_up_card.mana_cost
                     self.play_card()
+            if len(self.cards_in_mana_zone) >= 1:
+
+                available_mana = len(self.cards_in_mana_zone)
+
+                lowest_mana_cost = 0
+
+                while available_mana >= lowest_mana_cost:
+
+                    lowest_mana_cost = 10
+
+                    for card in self.cards_in_hand:
+                        if card.mana_cost < lowest_mana_cost:
+
+                            lowest_mana_cost = card.mana_cost
+                            print(card.name)
+                            self.picked_up_card = card
+
+                            if available_mana >= lowest_mana_cost:
+                                for i in range(lowest_mana_cost):
+                                    self.cards_in_mana_zone[i].is_clicked()
+                                    self.float_mana(self.cards_in_mana_zone[i])
+                                available_mana -= self.picked_up_card.mana_cost
+                                self.play_card()
 
         if self.current_phase == "attack":
             pair_up_cards = []  # will pair up the cards in tuples.
@@ -417,6 +457,10 @@ class NpcOpponent(Player):
                         card.fight(shield_card)
                     else:
                         print(f'{self.name} wins!')
+
+                    shield_card = random.choice(self.enemy.shields)
+                    print(card.name, 'attack shield', shield_card)
+                    card.fight(shield_card)
 
             for pair in pair_up_cards:
                 print(pair[0].name, pair[1].name)

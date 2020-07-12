@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="" />
     <list id="c66bbc84-2128-4572-926b-df1100505a08" name="Working on npc logic" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+=======
+    <list default="true" id="f6e56fef-ee8c-439e-9fa8-746f2a684661" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cards_lib/card_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/cards_lib/card_classes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/players.py" afterDir="false" />
+    </list>
+    <list id="c66bbc84-2128-4572-926b-df1100505a08" name="Working on npc logic" comment="" />
+>>>>>>> 8063ee84b47b336198c2258fc739d497561d44a7
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,7 +44,11 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/Programs/Python/Python38-32/Lib/site-packages/pygame" />
+>>>>>>> 8063ee84b47b336198c2258fc739d497561d44a7
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -43,6 +57,7 @@
       <recent name="C:\Users\Sander\AppData\Local\Programs\Python\Python38-32\Lib\site-packages\pygame" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -55,6 +70,8 @@
       </list>
     </option>
   </component>
+=======
+>>>>>>> 8063ee84b47b336198c2258fc739d497561d44a7
   <component name="RunManager" selected="Python.main">
     <configuration name="macfont" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DuelMasters" />
