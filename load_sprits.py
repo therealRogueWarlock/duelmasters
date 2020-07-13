@@ -29,7 +29,6 @@ class SpriteLoader:
                                    'Fire': self.fire_small, 'Light': self.light_small,
                                    'Nature': self.nature_small, 'Water': self.water_small}
 
-
         self.card_back = pygame.transform.scale(self.card_back_raw,
                                                 (percent_of_screen_width(5.2), percent_of_screen_height(13)))
 

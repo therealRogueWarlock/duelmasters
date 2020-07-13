@@ -6,7 +6,7 @@ screen_size = (infos.current_w, infos.current_h)
 
 
 class button:
-    def __init__(self, color, x, y, width, height, text='', img = None):
+    def __init__(self, color, x, y, width, height, text='', img=None):
         self.color = color
         self.x = x
         self.y = y
