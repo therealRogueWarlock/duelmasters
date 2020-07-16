@@ -117,6 +117,12 @@ class ACard:
                 print(f'{target_card.name} wins')
                 self.destroy()
 
+    def set_default_bool(self):
+        self.is_selected_bool = False
+        self.is_clicked_bool = False
+        self.is_used = False
+        self.is_tapped = False
+
     def set_all_zones_to_false(self):
         self.in_graveyard = False
         self.in_battle_zone = False
@@ -153,6 +159,8 @@ class ACard:
 
     def is_in_graveyard(self):
         self.set_all_zones_to_false()
+        self.set_default_bool()
+        self.in_graveyard = True
 
     def set_position_to(self, new_pos):
         if self.is_picked_up:  # centering the card on the mouse.

@@ -70,7 +70,11 @@ class BlitGame:
             card.blit_card((0, 0), self.window)
 
     def blit_graveyard(self):
-        pass
+        for card in player.cards_in_graveyard:
+            card.blit_card((0, 0), self.window)
+
+        for card in npc.cards_in_graveyard:
+            card.blit_card((0, 0), self.window)
 
     def blit_info(self):
         # blitting info for floating mana.
@@ -108,6 +112,7 @@ class BlitGame:
         self.blit_shields()
         self.blit_mana_zone()
         self.blit_battle_zone()
+        self.blit_graveyard()
         self.blit_hand()
         self.blit_info()
         pygame.display.update()

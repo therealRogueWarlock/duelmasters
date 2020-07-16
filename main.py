@@ -112,7 +112,7 @@ class Main:
                     pygame.quit()
                     sys.exit()
 
-                if event.key == pygame.K_w:  # draw a card
+                if event.key == pygame.K_w:
                     player.draw_a_card()
 
                 if event.key == pygame.K_SPACE:

@@ -193,17 +193,14 @@ class Player:
 
     def put_card_in_graveyard(self, card):
         print(f"{self.name} put's {card.name} into the graveyard")
-        card.is_clicked_bool = False
+
+        self.cards_in_battle_zone.remove(card)
 
         card.pos_index = len(self.cards_in_graveyard)
 
         card.set_position_to(self.graveyard_position)  # needs to be pos of graveyard
 
-        card.set_position_to((1000, 800))  # needs to be pos of graveyard
-
         self.cards_in_graveyard.append(card)
-
-        card.is_in_graveyard()
 
     def play_card(self):
         print(f"{self.name} tries to play's {self.picked_up_card.name}")
@@ -310,7 +307,6 @@ class Player:
     def info(self):
         return f'picked card: {self.picked_up_card}'
 
-
     def player_info(self):
         return f'player decklist ({len(self.deck_list)}): {[card.name for card in self.deck_list]}\n' \
                f'player hand ({len(self.cards_in_hand)}): {[card.name for card in self.cards_in_hand]}\n' \
@@ -340,7 +336,7 @@ class NpcOpponent(Player):
         self.positions_in_manazone = zones_class.manazone.positions_npc
         self.positions_in_shieldzone = zones_class.shieldzone.positions_npc
 
-        self.graveyard_position = (percent_of_screen_width(35), percent_of_screen_height(80))
+        self.graveyard_position = (percent_of_screen_width(30), percent_of_screen_height(20))
 
         self.hand_pos_x = (0.665, 0.29)
         self.hand_pos_y = 0.05
