@@ -202,6 +202,15 @@ class Player:
 
         self.cards_in_graveyard.append(card)
 
+    def untap_cards(self):
+        for card in (self.cards_in_battle_zone + self.cards_in_mana_zone):
+            card.is_tapped = False
+            card.is_used = False
+            card.summoning_sickness = False
+            card.width = percent_of_screen_width(5.3)
+            card.height = percent_of_screen_height(3.5)
+        self.if_charged_mana = False
+
     def play_card(self):
         print(f"{self.name} tries to play's {self.picked_up_card.name}")
 
@@ -251,39 +260,59 @@ class Player:
         return interactive_cards
 
     def next_phase(self):
+        # will automatically go to next phase
+
         self.current_phase = next(self.turn_phases)  # cycles over turn phases.
 
-        if self.current_phase == "untap":
-            self.untap_cards()
+        if self.current_phase == "untap" :
+            self.untap_phase() # calling the untap phase.
 
         if self.current_phase == "draw":
             if not self.turn_counter == 0:  # if not starting draw card.
-                self.draw_a_card()
+                self.draw_phase()
+            else:
+                self.next_phase()
+
+        if self.current_phase == "charge":
+            self.charge_phase()
+
+        if self.current_phase == "main":
+            self.main_phase()
 
         if self.current_phase == "attack":
+            # when going from main step to attack. remove all floating mana, set it to 0.
             self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0}
+            self.attack_phase()
 
         if self.current_phase is None:
             self.turn_counter += 1
 
-    def untap_cards(self):
-        for card in (self.cards_in_battle_zone + self.cards_in_mana_zone):
-            card.is_tapped = False
-            card.is_used = False
-            card.summoning_sickness = False
-            card.width = percent_of_screen_width(5.3)
-            card.height = percent_of_screen_height(3.5)
+    def untap_phase(self):
+        # has to check for effects at this step.
+        self.untap_cards()
+        # if no interatcion with effects, just call next_phase
+        self.next_phase()
 
-        self.if_charged_mana = False
+    def draw_phase(self):
+        self.draw_a_card()
+        self.next_phase()
 
-    def main_step(self):
+    def charge_phase(self):
+        if len(self.cards_in_hand) == 0: # if no cards in hand, just go to next phase.
+            self.next_phase()
+
+    def main_phase(self):
         # can play cards with mana.
+        # might be able to auto pass if player cant play a card.
         pass
 
-    def attack_step(self):
-        pass
+    def attack_phase(self):
+        if self.can_attack():
+            pass  # player can now choose to attack, or go to next phase.
+        else:
+            self.next_phase()
 
-    def end_step(self):
+    def end_phase(self):
         # check if any of players cards has an endstep trigger.
         for card in self.cards_in_battle_zone + self.cards_in_mana_zone:
             pass
@@ -316,6 +345,16 @@ class Player:
                f'saved deck {self.saved_deck}\n' \
                f'mana {self.available_mana}\n' \
                f'float mana {self.floating_mana}\n' \
+
+    def can_attack(self):  # will check if any card in the battlezone can attack.
+        for card in self.cards_in_battle_zone:
+            if not card.summoning_sickness:
+                if not card.is_used:
+                    if not card.is_tapped:
+                        return True
+        return False
+
+
 
 
 

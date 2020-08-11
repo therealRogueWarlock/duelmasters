@@ -225,7 +225,13 @@ class ACard:
         self.hover_over = False
         return False
 
+    def info(self):
+        return self.name, self.pos_xy, self.width, self.height
+
     def is_clicked(self):
+
+        # print(self.info())
+
         if self.in_hand:
             self.is_picked_up = True
 
