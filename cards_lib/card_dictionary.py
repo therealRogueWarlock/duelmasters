@@ -1,10 +1,12 @@
 import pygame
 
+
 card_dict = {
     "Darkness": {
         "BlackFeatherShadowofRage": {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, destroy one of your creatures.",
+            "ability": ["sarcifice_1"],
             "Illustrator": "Soushi Hirose",
             "Mana": 1,
             "Mana Cost": 1,
@@ -17,6 +19,7 @@ card_dict = {
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the "
                          "attack. Then the two creatures battle.) This creature can't attack. When this creature wins "
                          "a battle, destroy it.",
+            "ability": ["Blocker", "Bee"],
             "Illustrator": "Atsushi Kawasaki",
             "Mana": 1,
             "Mana Cost": 2,
@@ -27,6 +30,7 @@ card_dict = {
         "BoneAssassintheRipper": {
             "Card Type": "Creature",
             "Card Text": "Slayer (When this creature loses a battle, destroy the other creature.)",
+            "ability": ["Slayer"],
             "Illustrator": "Nottsuo",
             "Mana": 1,
             "Mana Cost": 4,
@@ -37,6 +41,7 @@ card_dict = {
         "BoneSpider": {
             "Card Type": "Creature",
             "Card Text": "When this creature wins a battle, destroy it.",
+            "ability": ["Bee"],
             "Illustrator": "Dai",
             "Mana": 1,
             "Mana Cost": 3,
@@ -49,6 +54,7 @@ card_dict = {
             "Card Text": "Whenever any of your creatures becomes blocked this turn, it gets \"slayer\" until the end "
                          "of the turn. (When a creature that has \"slayer\" loses a battle, destroy the other "
                          "creature.)",
+            "ability": [],
             "Illustrator": "Ryoya Yuki",
             "Mana": 1,
             "Mana Cost": 1,
@@ -58,9 +64,10 @@ card_dict = {
         },
         "DarkClown": {
             "Card Type": "Creature",
-            "Card Text": "Blocker Blocker (When an opponent's creature attacks, you may tap this creature to stop the "
+            "Card Text": "Blocker(When an opponent's creature attacks, you may tap this creature to stop the "
                          "attack. Then the two creatures battle.) This creature can't attack. When this creature wins "
                          "a battle, destroy it.",
+            "ability": ["Blocker", "Bee"],
             "Illustrator": "Jason",
             "Mana": 1,
             "Mana Cost": 4,
@@ -72,6 +79,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. "
                          "Then the two creatures battle.)",
+            "ability": ["Blocker"],
             "Illustrator": "Norikatsu Miyoshi",
             "Mana": 1,
             "Mana Cost": 4,
@@ -83,6 +91,7 @@ card_dict = {
             "Card Type": "Spell",
             "Card Text": "Shield trigger (When this spell is put into your hand from your shield zone, you may cast "
                          "it for no cost.)Return a creature from your graveyard to your hand.",
+            "ability": ["ShieldTrigger:Return_1"],
             "Illustrator": "Nottsuo",
             "Mana": 1,
             "Mana Cost": 2,
@@ -93,6 +102,7 @@ card_dict = {
         "DeathSmoke": {
             "Card Type": "Spell",
             "Card Text": "Destroy one of your opponent's untapped creatures.",
+            "ability": ["destroy_untapped"],
             "Illustrator": "Dustmoss",
             "Mana": 1,
             "Mana Cost": 4,
@@ -104,6 +114,7 @@ card_dict = {
             "Card Type": "Spell",
             "Card Text": "Shield trigger (When this spell is put into your hand from your shield zone, you may cast "
                          "it for no cost.)Your opponent discards a card at random from his hand.",
+            "ability": [],
             "Illustrator": "Soushi Hirose",
             "Mana": 1,
             "Mana Cost": 2,
@@ -115,6 +126,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, destroy 2 of your creatures or destroy "
                          "this creature.Double breaker (This creature breaks 2 shields.)",
+            "ability": [],
             "Illustrator": "Katsuya",
             "Mana": 1,
             "Mana Cost": 5,
@@ -125,6 +137,7 @@ card_dict = {
         "Gigagiele": {
             "Card Type": "Creature",
             "Card Text": "Slayer (When this creature loses a battle, destroy the other creature.)",
+            "ability": [],
             "Illustrator": "Hisashi Momose",
             "Mana": 1,
             "Mana Cost": 5,
@@ -136,6 +149,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, return up to 2 creatures from your "
                          "graveyard to your hand.",
+            "ability": [],
             "Illustrator": "Tsutomu Kawade",
             "Mana": 1,
             "Mana Cost": 8,
@@ -147,6 +161,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, your opponent discards a card at random "
                          "from his hand.",
+            "ability": [],
             "Illustrator": "Gyokan",
             "Mana": 1,
             "Mana Cost": 5,
@@ -158,6 +173,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. "
                          "Then the two creatures battle.)",
+            "ability": [],
             "Illustrator": "Hideaki Takamura",
             "Mana": 1,
             "Mana Cost": 6,
@@ -168,6 +184,7 @@ card_dict = {
         "SkeletonSoldiertheDefiled": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "Katsuya",
             "Mana": 1,
             "Mana Cost": 4,
@@ -178,6 +195,7 @@ card_dict = {
         "StingerWorm": {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, destroy one of your creatures.",
+            "ability": [],
             "Illustrator": "Norikatsu Miyoshi",
             "Mana": 1,
             "Mana Cost": 3,
@@ -189,6 +207,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, your opponent chooses one of his creatures "
                          "and destroys it",
+            "ability": [],
             "Illustrator": "\tYouichi Kai",
             "Mana": 1,
             "Mana Cost": 7,
@@ -200,6 +219,7 @@ card_dict = {
             "Card Type": "Spell",
             "Card Text": "Shield trigger (When this spell is put into your hand from your shield zone, you may cast "
                          "it for no cost.)Destroy one of your opponent's creatures.",
+            "ability": [],
             "Illustrator": "Yusaku Nakaaki",
             "Mana": 1,
             "Mana Cost": 6,
@@ -211,6 +231,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, destroy all creatures that have power 3000 "
                          "or less.",
+            "ability": [],
             "Illustrator": "Masaki Hirooka",
             "Mana": 1,
             "Mana Cost": 8,
@@ -222,6 +243,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. "
                          "Then the two creatures battle.)This creature can't attack.",
+            "ability": [],
             "Illustrator": "Youichi Kai",
             "Mana": 1,
             "Mana Cost": 2,
@@ -232,6 +254,7 @@ card_dict = {
         "WrithingBoneGhoul": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "Eiji Kaneda",
             "Mana": 1,
             "Mana Cost": 2,
@@ -242,6 +265,7 @@ card_dict = {
         "ZagaanKnightofDarkness": {
             "Card Type": "Creature",
             "Card Text": "Double breaker",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 6,
@@ -254,6 +278,7 @@ card_dict = {
         "ChiliasTheOracle": {
             "Card Type": "Creature",
             "Card Text": "When this creature would be destroyed, put it into your hand instead.",
+            "ability": [],
             "Illustrator": "Akira Hamada",
             "Mana": 1,
             "Mana Cost": 4,
@@ -265,6 +290,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. "
                          "Then the two creatures battle.)This creature can't attack players.",
+            "ability": [],
             "Illustrator": "Tomofumi Ogasawara",
             "Mana": 1,
             "Mana Cost": 4,
@@ -275,6 +301,7 @@ card_dict = {
         "EmeraldGrass": {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. Then the two creatures battle.)This creature can't attack players.",
+            "ability": [],
             "Illustrator": "Daisuke Izuka",
             "Mana": 1,
             "Mana Cost": 2,
@@ -285,6 +312,7 @@ card_dict = {
         "FreiVizierofAir": {
             "Card Type": "Creature",
             "Card Text": "At the end of each of your turns, you may untap this creature.",
+            "ability": [],
             "Illustrator": "Yusaku Nakaaki",
             "Mana": 1,
             "Mana Cost": 4,
@@ -295,6 +323,7 @@ card_dict = {
         "GranGureSpaceGuardian": {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. Then the two creatures battle.)This creature can't attack players.",
+            "ability": [],
             "Illustrator": "D-Suzuki",
             "Mana": 1,
             "Mana Cost": 6,
@@ -305,6 +334,7 @@ card_dict = {
         "HolyAwe": {
             "Card Type": "Spell",
             "Card Text": "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it for no cost.)Tap all your opponent's creatures in the battle zone.",
+            "ability": [],
             "Illustrator": "Naoki Saito",
             "Mana": 1,
             "Mana Cost": 6,
@@ -315,6 +345,7 @@ card_dict = {
         "IereVizierofBullets": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "Daisuke Izuka",
             "Mana": 1,
             "Mana Cost": 3,
@@ -325,6 +356,7 @@ card_dict = {
         "IocanttheOracle": {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. Then the two creatures battle.)\n■ While you have at least 1 Angel Command in the battle zone, this creature gets +2000 power.\n\n■ This creature can't attack players.",
+            "ability": [],
             "Illustrator": "Naoki Saito",
             "Mana": 1,
             "Mana Cost": 2,
@@ -335,6 +367,7 @@ card_dict = {
         "LaUraGigaSkyGuardian": {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. Then the two creatures battle.)\n■ This creature can't attack players.",
+            "ability": [],
             "Illustrator": "Kou1",
             "Mana": 1,
             "Mana Cost": 1,
@@ -345,6 +378,7 @@ card_dict = {
         "LahPurificationEnforcer": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "Hideaki Takamura",
             "Mana": 1,
             "Mana Cost": 5,
@@ -355,6 +389,7 @@ card_dict = {
         "LaserWing": {
             "Card Type": "Spell",
             "Card Text": "Choose up to 2 of your creatures in the battle zone. They can't be blocked this turn.",
+            "ability": [],
             "Illustrator": "Gyokan",
             "Mana": 1,
             "Mana Cost": 5,
@@ -365,6 +400,7 @@ card_dict = {
         "LokVizierofHunting": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "Hisanobu Kometani",
             "Mana": 1,
             "Mana Cost": 4,
@@ -375,6 +411,7 @@ card_dict = {
         "MieleVizierofLightning": {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, you may choose one of your opponent's creatures in the battle zone and tap it.",
+            "ability": [],
             "Illustrator": "Dai",
             "Mana": 1,
             "Mana Cost": 3,
@@ -385,6 +422,7 @@ card_dict = {
         "MoonlightFlash": {
             "Card Type": "Spell",
             "Card Text": "Choose up to 2 of your opponent's creatures in the battle zone and tap them.",
+            "ability": [],
             "Illustrator": "Hisanobu Kometani",
             "Mana": 1,
             "Mana Cost": 4,
@@ -395,6 +433,7 @@ card_dict = {
         "RaylaTruthEnforcer": {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, search your deck. You may take a spell from your deck, show that spell to your opponent, and put it into your hand. Then shuffle your deck.",
+            "ability": [],
             "Illustrator": "Dai",
             "Mana": 1,
             "Mana Cost": 6,
@@ -405,6 +444,7 @@ card_dict = {
         "Reusol,TheOracle": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "Soushi Hirose",
             "Mana": 1,
             "Mana Cost": 2,
@@ -415,6 +455,7 @@ card_dict = {
         "RubyGrass": {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. Then the two creatures battle.)\n■ This creature can't attack players.\n\n■ At the end of each of your turns, you may untap this creature.",
+            "ability": [],
             "Illustrator": "Naoki Saito",
             "Mana": 1,
             "Mana Cost": 3,
@@ -425,6 +466,7 @@ card_dict = {
         "SenatineJadeTree": {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. Then the two creatures battle.)\n■ This creature can't attack players.",
+            "ability": [],
             "Illustrator": "Norikatsu Miyoshi",
             "Mana": 1,
             "Mana Cost": 3,
@@ -435,6 +477,7 @@ card_dict = {
         "SolarRay": {
             "Card Type": "Spell",
             "Card Text": "Shield trigger (When this spell is put into your hand from your shield zone, you may cast it for no cost.)\n■ Choose one of your opponent's creatures in the battle zone and tap it.",
+            "ability": [],
             "Illustrator": "Jason",
             "Mana": 1,
             "Mana Cost": 2,
@@ -445,6 +488,7 @@ card_dict = {
         "SonicWing": {
             "Card Type": "Spell",
             "Card Text": "Choose one of your creatures in the battle zone. It can't be blocked this turn.",
+            "ability": [],
             "Illustrator": "Masaki Hirooka",
             "Mana": 1,
             "Mana Cost": 3,
@@ -455,6 +499,7 @@ card_dict = {
         "SzubsKinTwilightGuardian": {
             "Card Type": "Creature",
             "Card Text": "Blocker (When an opponent's creature attacks, you may tap this creature to stop the attack. Then the two creatures battle.)\n■ This creature can't attack players.",
+            "ability": [],
             "Illustrator": "Ittoku",
             "Mana": 1,
             "Mana Cost": 5,
@@ -465,6 +510,7 @@ card_dict = {
         "ToelVizierofHope": {
             "Card Type": "Creature",
             "Card Text": "At the end of each of your turns, you may untap all your creatures in the battle zone.",
+            "ability": [],
             "Illustrator": "Masaki Hirooka",
             "Mana": 1,
             "Mana Cost": 5,
@@ -475,6 +521,7 @@ card_dict = {
         "UrthPurifyingElemental": {
             "Card Type": "Creature",
             "Card Text": "Double Breaker\n At the end of each of your turn, you may untap this creature.",
+            "ability": [],
             "Illustrator": "Masaki Hirooka",
             "Mana": 1,
             "Mana Cost": 6,
@@ -488,6 +535,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "While you have at least 1 human in the battle zone, "
                          "this creature gets +2000 power during its attacks.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -499,6 +547,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone, "
                          "put 1 card from your mana zone into your graveyard.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 1,
@@ -509,6 +558,7 @@ card_dict = {
         "AstrocometDragon": {
             "Card Type": "Creature",
             "Card Text": "Power attacker +4000\n Double breaker",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 7,
@@ -520,6 +570,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "While attacking, this creature gets +1000 power\n"
                          "for each fire card in you graveyard.\n Double breaker",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 6,
@@ -530,6 +581,7 @@ card_dict = {
         "BrawlerZyler": {
             "Card Type": "Creature",
             "Card Text": "Power attacker +2000",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 2,
@@ -540,6 +592,7 @@ card_dict = {
         "BurningPower": {
             "Card Type": "Spell",
             "Card Text": """One of your creatures gets "power attacker +2000" until the end of the turn.""",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 1,
@@ -551,6 +604,7 @@ card_dict = {
             "Card Type": "Spell",
             "Card Text": "Choose 1 of your opponents's untapped creatures\nin the battle zone. "
                          "Your creatures can attack it this\nturn as though it were tapped.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 2,
@@ -561,6 +615,7 @@ card_dict = {
         "DeadlyFighterBraidClaw": {
             "Card Type": "Creature",
             "Card Text": "This creature attacks each turn if able.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 1,
@@ -571,6 +626,7 @@ card_dict = {
         "Draglide": {
             "Card Type": "Creature",
             "Card Text": "This creature attacks each turn if able.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 5,
@@ -583,6 +639,7 @@ card_dict = {
             "Card Text": "When you put this creature into the battle zone,\n"
                          "put 2 cards from you mana zone into your\ngraveyard.\n"
                          "Double breaker",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 5,
@@ -594,6 +651,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "While you have at least 1 armorloid in the battle\n zone, this creature gets"
                          "+2000 power during its attacks.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 3,
@@ -604,6 +662,7 @@ card_dict = {
         "FireSweeperBurningHellion": {
             "Card Type": "Creature",
             "Card Text": "Power attacker +2000.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -614,6 +673,7 @@ card_dict = {
         "GatlingSkyterror": {
             "Card Type": "creature",
             "Card Text": "This creature can attack untapped creatures.\n Double breaker.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 7,
@@ -624,6 +684,7 @@ card_dict = {
         "ImmortalBaronVorg": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 2,
@@ -635,6 +696,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone\n"
                          "you may destroy 1 of your opponents's ceatures\nthat has power 2000 or less",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 5,
@@ -645,6 +707,7 @@ card_dict = {
         "NomadHeroGigio": {
             "Card Type": "Creature",
             "Card Text": "This creature can attack untapped creatures",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 5,
@@ -656,6 +719,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle\n"
                          "zone, put 1 card from you manazone into your\ngraveyard.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 3,
@@ -668,6 +732,7 @@ card_dict = {
             "Card Text": "When you put this creature into the battle\nzone, "
                          "destroy one of your creatures. then your\nopponent chooses one of "
                          "his creatures and destroys is.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -679,6 +744,7 @@ card_dict = {
             "Card Type": "Spell",
             "Card Text": """When you put this creature into the battle zone,\n
                             destroy all creatures that have "blocker".""",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 8,
@@ -689,6 +755,7 @@ card_dict = {
         "Stonesaur": {
             "Card Type": "Creature",
             "Card Text": "Power attacker +2000",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 5,
@@ -699,6 +766,7 @@ card_dict = {
         "SuperExplosiveVolcanodon": {
             "Card Type": "Creature",
             "Card Text": "Power attacker +4000",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -710,6 +778,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "Shield trigger\n"
                          "Destroy 1 of your opponent's creature that has power 4000 or less.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 5,
@@ -723,6 +792,7 @@ card_dict = {
             "Card Type": "Spell",
             "Card Text": """Each of your creatures in the battle zone gets 
                             "power attacker +200" until the end of the turn.""",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -733,6 +803,7 @@ card_dict = {
         "BurningMane": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -743,6 +814,7 @@ card_dict = {
         "CoilingVines": {
             "Card Type": "Creature",
             "Card Text": "When this creature would be destoyed, put it into your mana zone instead.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -754,6 +826,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "Power attacker +4000\n"
                          "Double breaker.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 5,
@@ -767,6 +840,7 @@ card_dict = {
                          "Search you deck. You may take a creature\nfrom you deck, "
                          "show the creature to your opponent, and put it into your\n"
                          "hand. then shuffle your deck.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 3,
@@ -778,6 +852,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone,\n "
                          "put the top card of your deck into your mana zone.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 3,
@@ -788,6 +863,7 @@ card_dict = {
         "DomeShell": {
             "Card Type": "Creature",
             "Card Text": "Power attacker +2000.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -798,6 +874,7 @@ card_dict = {
         "FearFang": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 3,
@@ -808,6 +885,7 @@ card_dict = {
         "ForestHornet": {
             "Card Type": "Creature",
             "Card Text": "",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -818,6 +896,7 @@ card_dict = {
         "GoldenWingStriker": {
             "Card Type": "Creature",
             "Card Text": "Power attacker +2000.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 3,
@@ -828,6 +907,7 @@ card_dict = {
         "MightyShouter": {
             "Card Type": "Creature",
             "Card Text": "When this creature would be destroyed, put it into your mana zone instead.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 3,
@@ -840,6 +920,7 @@ card_dict = {
             "Card Text": "Shield trigger\n"
                          "Choose one of your opponent's creatures in the\n"
                          "battle zone and put it into his mana zone.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 6,
@@ -850,6 +931,7 @@ card_dict = {
         "PangaesSong": {
             "Card Type": "Spell",
             "Card Text": "Put 1 of your creatures from the battle zone into your mana zone.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 1,
@@ -860,6 +942,7 @@ card_dict = {
         "PoisonousDahlia": {
             "Card Type": "Creature",
             "Card Text": "This creature can't attack players.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 4,
@@ -871,6 +954,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "When you put this creature into the battle zone,\n "
                          "you may put 1 card from your hand into your mana zone.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 2,
@@ -881,6 +965,7 @@ card_dict = {
         "RedEyeScorpion": {
             "Card Type": "Creature",
             "Card Text": "When this creature would be destroyed,\n put it into your mana zone instead.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 5,
@@ -892,6 +977,7 @@ card_dict = {
             "Card Type": "Creature",
             "Card Text": "Power attacker +2000\n"
                          "Double breaker",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 7,
@@ -902,6 +988,7 @@ card_dict = {
         "StampedingLonghorn": {
             "Card Type": "Creature",
             "Card Text": "This creature can't be blocked by any creature\n that has power 3000 or less.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 5,
@@ -912,6 +999,7 @@ card_dict = {
         "SteelSmasher": {
             "Card Type": "Creature",
             "Card Text": "This creature can't attack players.",
+            "ability": [],
             "Illustrator": "someone",
             "Mana": 1,
             "Mana Cost": 2,
