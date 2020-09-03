@@ -38,7 +38,7 @@ class Main:
                 pygame.quit()
                 sys.exit()
 
-            active_cards = player.get_interactive_cards() + npc.cards_in_battle_zone + npc.shields
+            active_cards = player.get_interactive_cards() + npc.cards_in_battle_zone + npc.cards_in_shields
 
             # all cards on battlefield can be hovered over to get info.
             for card in active_cards + npc.cards_in_mana_zone:
@@ -62,7 +62,7 @@ class Main:
                                                 player.selected_card = card
                                                 print(player.selected_card.name, card.owner)
 
-                                    if card in npc.cards_in_battle_zone + npc.shields:
+                                    if card in npc.cards_in_battle_zone + npc.cards_in_shields:
                                         card.is_clicked_bool = True
                                         player.target_card = card
 

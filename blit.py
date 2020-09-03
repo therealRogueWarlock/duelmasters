@@ -5,10 +5,9 @@ from load_sprits import sprite_loader
 from players import player, npc
 from buttons import all_buttons
 from zones import zones_class
-import itertools
 
 
-# DrawGame will handle all drawing to the screen.
+# BlitGame will handle all drawing to the screen.
 class BlitGame:
     def __init__(self):
         self.font_for_phase_info = pygame.font.SysFont('comicsand', 30, True)
@@ -25,7 +24,6 @@ class BlitGame:
             pygame.transform.scale(sprite_loader.playing_field,
                                    (percent_of_screen_width(100), percent_of_screen_height(100)))
 
-
         infos = pygame.display.Info()
         self.screen_size = (infos.current_w, infos.current_h)
 
@@ -36,45 +34,43 @@ class BlitGame:
     def blit_hand(self):
         for card in player.cards_in_hand:
             if not card.is_picked_up:
-                card.blit_card(player.mouse_pos(), self.window)
+                card.blit_card(self.window)
 
         if player.picked_up_card:
-            player.picked_up_card.blit_card(player.mouse_pos(), self.window)
+            player.picked_up_card.blit_card(self.window)
 
         for card in npc.cards_in_hand:
-            card.blit_card((), self.window)
+            card.blit_card(self.window)
 
     def blit_shields(self):
-        for card in player.shields:
-            card.blit_card((0, 0), self.window)
+        for card in player.cards_in_shields:
+            card.blit_card(self.window)
 
-        for card in npc.shields:
-            card_back = pygame.transform.scale(sprite_loader.card_back,
-                                               (percent_of_screen_width(5.2), percent_of_screen_height(13)))
-            self.window.blit(card_back, zones_class.shieldzone.positions_npc[card.pos_index])
+        for card in npc.cards_in_shields:
+            card.blit_card(self.window)
 
     def blit_mana_zone(self):
-        pygame.draw.rect(self.window, (0, 0, 0), zones_class.manazone.rect)
+        pygame.draw.rect(self.window, (20, 20, 20), zones_class.manazone.rect)
         for card in player.cards_in_mana_zone:
-            card.blit_card((0, 0), self.window)
+            card.blit_card(self.window)
 
         for card in npc.cards_in_mana_zone:
-            card.blit_card((0, 0), self.window)
+            card.blit_card(self.window)
 
     def blit_battle_zone(self):
         pygame.draw.rect(self.window, (255, 0, 0), zones_class.battlezone.rect)
         for card in player.cards_in_battle_zone:
-            card.blit_card(player.mouse_pos(), self.window)
+            card.blit_card(self.window)
 
         for card in npc.cards_in_battle_zone:
-            card.blit_card((0, 0), self.window)
+            card.blit_card(self.window)
 
     def blit_graveyard(self):
         for card in player.cards_in_graveyard:
-            card.blit_card((0, 0), self.window)
+            card.blit_card(self.window)
 
         for card in npc.cards_in_graveyard:
-            card.blit_card((0, 0), self.window)
+            card.blit_card(self.window)
 
     def blit_info(self):
         # blitting info for floating mana.
@@ -107,7 +103,7 @@ class BlitGame:
                 all_buttons[key].blit(self.window)
 
     def blit_window(self):
-        self.window.blit(self.playingfield_resized, (0, 0))  # takes an image and an position.
+        self.window.blit(self.playingfield_resized, (0, 0))  # takes an image and a position.
         self.blit_buttons()
         self.blit_shields()
         self.blit_mana_zone()

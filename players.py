@@ -6,7 +6,6 @@ import itertools
 from cards_lib import card_classes
 from utils import percent_of_screen_width, percent_of_screen_height
 
-
 infos = pygame.display.Info()
 screen_size = (infos.current_w, infos.current_h)
 
@@ -25,12 +24,11 @@ class Player:
                            'RothusTheTraveler', 'SteelSmasher', 'GoldenWingStriker', 'BronzeArmTribe']
 
         # saving the deck two places, will help when resetting.
-        self.turn_counter = 0
 
         # creates a list of card objects with the "ACard" class.
         self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
         self.cards_in_hand = []
-        self.shields = []
+        self.cards_in_shields = []
         self.cards_in_mana_zone = []
         self.cards_in_graveyard = []
         self.cards_in_battle_zone = []
@@ -48,6 +46,7 @@ class Player:
         # attributes for a round and the phases
         self.turn_phases = itertools.cycle(["untap", "draw", "charge", "main", "attack", "end", None])
         self.current_phase = None
+        self.turn_counter = 0
 
         # attributes for mana management.
         self.available_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0, "Water": 0}
@@ -57,9 +56,14 @@ class Player:
 
         self.positions_in_battlezone = zones_class.battlezone.positions_player
         self.positions_in_manazone = zones_class.manazone.positions_player
-        self.positions_in_shieldzone = zones_class.shieldzone.positions_player
 
+        self.graveyard = zones_class.graveyard
         self.graveyard_position = (percent_of_screen_width(65), percent_of_screen_height(80))
+        self.graveyard.set_position(self.graveyard_position)
+
+        self.shield_slots = []
+        self.shield_zone = zones_class.shieldzone
+        self.shield_zone_position = (percent_of_screen_width(6.25), percent_of_screen_height(60.2))
 
         self.hand_pos_x = (0.465, 0.29)
         self.hand_pos_y = 0.91
@@ -67,7 +71,7 @@ class Player:
         self.target_card = None  # Target an enemy card
         self.selected_card = None  # select own card.
 
-        # check if player chaged this turn.
+        # bool for if player charged mana this turn.
         self.if_charged_mana = False
 
         self.enemy = None
@@ -78,6 +82,9 @@ class Player:
         self.font_for_info = pygame.font.SysFont('comicsand', 30, True)
 
         self.font_for_mana_info = pygame.font.SysFont('comicsand', 30, True)
+
+    def create_zones(self):
+        self.shield_slots = self.shield_zone.create_slots(self.shield_zone_position)
 
     def shuffle_deck(self):
         return random.shuffle(self.deck_list)
@@ -93,12 +100,11 @@ class Player:
         for i in range(5):  # Draw five cards.
             try:
                 first_card = self.deck_list[0]  # the first card in the deck
-                self.shields.append(first_card)  # adding the first card of the deck to shields.
-                first_card.pos_index = len(self.shields) - 1  # -1 cause we count after we appended the card.
-                first_card.set_position_to(self.positions_in_shieldzone[first_card.pos_index])
+                self.cards_in_shields.append(first_card)  # adding the first card of the deck to shields.
+                first_card.pos_index = len(self.cards_in_shields) - 1  # -1 cause we count after we appended the card.
+                first_card.set_position_to(self.shield_slots[first_card.pos_index])
                 first_card.is_in_shield_zone()  # the card now know its zone.
                 self.deck_list.remove(first_card)  # removing the first card from the deck.
-
             except IndexError:
                 print('Deck is out of cards.')
 
@@ -109,8 +115,8 @@ class Player:
 
         else:
             self.cards_in_hand.append(shield_card)  # adding shield card of hand.
-            shield_card.pos_index = len(self.cards_in_hand)-1  # -1 cause we count after we appended the card.
-            self.shields.remove(shield_card)
+            shield_card.pos_index = len(self.cards_in_hand) - 1  # -1 cause we count after we appended the card.
+            self.cards_in_shields.remove(shield_card)
             shield_card.is_in_hand()
             self.position_cards_in_hand()
 
@@ -120,7 +126,7 @@ class Player:
             self.cards_in_hand.append(card_drawn)  # adding the first card of the deck to hand.
             # the card now has an index of what position the card is in.
             card_drawn.pos_index = len(self.cards_in_hand) - 1  # -1 cause we count after we appended the card.
-            card_drawn.in_hand = True  # the card now know its location.
+            card_drawn.is_in_hand()
             self.deck_list.remove(card_drawn)  # removing the first card from the deck.
             self.position_cards_in_hand()
 
@@ -137,12 +143,13 @@ class Player:
         positions_in_hand = []
         # as long as hand size is less then 7 there will be no card overlapping
         if hand_size < 7:
-            positions_in_hand = [((int(screen_size[0] * (self.hand_pos_x[0] - (0.025 * hand_size)) + x * int(screen_size[0] * 0.051))),
-                                  int(screen_size[1] * self.hand_pos_y)) for x in range(hand_size)]
+            positions_in_hand = [
+                ((int(screen_size[0] * (self.hand_pos_x[0] - (0.025 * hand_size)) + x * int(screen_size[0] * 0.051))),
+                 int(screen_size[1] * self.hand_pos_y)) for x in range(hand_size)]
 
         # creats a list of positions according to hand img_width and hand size.
         else:
-            max_hand_width = screen_width*0.3125   # the width of the hand is max 31 % of the screen.
+            max_hand_width = screen_width * 0.3125  # the width of the hand is max 31 % of the screen.
 
             hand_spot_size = int(max_hand_width / hand_size)  # the size of the spots are determent by hand size-
 
@@ -194,7 +201,7 @@ class Player:
     def put_card_in_graveyard(self, card):
         print(f"{self.name} put's {card.name} into the graveyard")
 
-        self.cards_in_battle_zone.remove(card)
+        card.location.remove(card)
 
         card.pos_index = len(self.cards_in_graveyard)
 
@@ -240,6 +247,7 @@ class Player:
         for card in self.deck_list:
             card.owner = self
 
+        self.create_zones()
         self.shuffle_deck()
         self.draw_shields()
         self.draw_hand()
@@ -247,15 +255,15 @@ class Player:
     def shuffle_back_cards(self):
         self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
         self.cards_in_hand = []
-        self.shields = []
+        self.cards_in_shields = []
         self.cards_in_mana_zone = []
         self.cards_in_graveyard = []
         self.cards_in_battle_zone = []
 
     def get_interactive_cards(self):
         self.interactive_cards = (
-                    self.cards_in_hand + self.cards_in_graveyard + self.cards_in_mana_zone
-                    + self.cards_in_battle_zone + self.shields)
+                self.cards_in_hand + self.cards_in_mana_zone
+                + self.cards_in_battle_zone + self.cards_in_shields)
         interactive_cards = self.interactive_cards
         return interactive_cards
 
@@ -264,8 +272,8 @@ class Player:
 
         self.current_phase = next(self.turn_phases)  # cycles over turn phases.
 
-        if self.current_phase == "untap" :
-            self.untap_phase() # calling the untap phase.
+        if self.current_phase == "untap":
+            self.untap_phase()  # calling the untap phase.
 
         if self.current_phase == "draw":
             if not self.turn_counter == 0:  # if not starting draw card.
@@ -298,7 +306,7 @@ class Player:
         self.next_phase()
 
     def charge_phase(self):
-        if len(self.cards_in_hand) == 0: # if no cards in hand, just go to next phase.
+        if len(self.cards_in_hand) == 0:  # if no cards in hand, just go to next phase.
             self.next_phase()
 
     def main_phase(self):
@@ -339,12 +347,12 @@ class Player:
     def player_info(self):
         return f'player decklist ({len(self.deck_list)}): {[card.name for card in self.deck_list]}\n' \
                f'player hand ({len(self.cards_in_hand)}): {[card.name for card in self.cards_in_hand]}\n' \
-               f'player shields ({len(self.shields)}): {[card.name for card in self.shields]}\n' \
-               f'player manazone ({len(self.cards_in_mana_zone)}): {[card.name for card in self.cards_in_mana_zone]}\n'\
+               f'player shields ({len(self.cards_in_shields)}): {[card.name for card in self.cards_in_shields]}\n' \
+               f'player manazone ({len(self.cards_in_mana_zone)}): {[card.name for card in self.cards_in_mana_zone]}\n' \
                f'available mana {self.available_mana}' \
                f'saved deck {self.saved_deck}\n' \
                f'mana {self.available_mana}\n' \
-               f'float mana {self.floating_mana}\n' \
+               f'float mana {self.floating_mana}\n'
 
     def can_attack(self):  # will check if any card in the battlezone can attack.
         for card in self.cards_in_battle_zone:
@@ -353,9 +361,6 @@ class Player:
                     if not card.is_tapped:
                         return True
         return False
-
-
-
 
 
 class NpcOpponent(Player):
@@ -373,9 +378,10 @@ class NpcOpponent(Player):
 
         self.positions_in_battlezone = zones_class.battlezone.positions_npc
         self.positions_in_manazone = zones_class.manazone.positions_npc
-        self.positions_in_shieldzone = zones_class.shieldzone.positions_npc
 
         self.graveyard_position = (percent_of_screen_width(30), percent_of_screen_height(20))
+
+        self.shield_zone_position = (percent_of_screen_width(6.25), percent_of_screen_height(20))
 
         self.hand_pos_x = (0.665, 0.29)
         self.hand_pos_y = 0.05
@@ -455,10 +461,10 @@ class NpcOpponent(Player):
 
             # if npc has more shields than player attackers.
             for card in cards_that_can_attack:
-                if len(self.shields) > len(self.enemy.cards_in_battle_zone):
+                if len(self.cards_in_shields) > len(self.enemy.cards_in_battle_zone):
                     # attack a shield
-                    if not len(self.enemy.shields) == 0:
-                        shield_card = random.choice(self.enemy.shields)
+                    if not len(self.enemy.cards_in_shields) == 0:
+                        shield_card = random.choice(self.enemy.cards_in_shields)
                         print(card.name, 'attack shield', shield_card.pos_index)
                         card.fight(shield_card)
                     else:
@@ -482,3 +488,4 @@ npc.enemy = player
 
 npc.setup()
 player.setup()
+

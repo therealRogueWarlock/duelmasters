@@ -78,6 +78,8 @@ class ACard:
         # check how owns the card.
         self.owner = None
 
+        self.location = None
+
         self.summoning_sickness = True
 
         self.triggers = []
@@ -140,14 +142,17 @@ class ACard:
         self.width = percent_of_screen_width(5.3)
         self.height = percent_of_screen_height(3.5)
         self.in_mana_zone = True
+        self.location = self.owner.cards_in_mana_zone
 
     def is_in_hand(self):
         self.set_all_zones_to_false()
         self.in_hand = True
+        self.location = self.owner.cards_in_hand
 
     def is_in_shield_zone(self):
         self.set_all_zones_to_false()
         self.in_shield_zone = True
+        self.location = self.owner.cards_in_shields
 
     def is_in_battle_zone(self):
         self.set_all_zones_to_false()
@@ -156,11 +161,13 @@ class ACard:
         self.width = percent_of_screen_width(5.3)
         self.height = percent_of_screen_height(12.7)
         self.in_battle_zone = True
+        self.location = self.owner.cards_in_battle_zone
 
     def is_in_graveyard(self):
         self.set_all_zones_to_false()
         self.set_default_bool()
         self.in_graveyard = True
+        self.location = self.owner.cards_in_graveyard
 
     def set_position_to(self, new_pos):
         if self.is_picked_up:  # centering the card on the mouse.
@@ -172,7 +179,7 @@ class ACard:
         return self.pos_xy
 
     # create a function to blit it self.
-    def blit_card(self, player_mouse_pos, window):
+    def blit_card(self, window):
         # getting the img to blit, and resizing it.
         card_img = pygame.transform.scale(self.img, (self.img_width, self.img_height))
 
@@ -194,7 +201,7 @@ class ACard:
             # if the card is clicked it will be highlighted.
             if self.is_picked_up:
                 # if that card is picked up, the card will get mouse pos.
-                window.blit(card_img, self.set_position_to(player_mouse_pos))
+                window.blit(card_img, self.set_position_to(self.owner.mouse_pos()))
 
             if self.hover_over:
                 window.blit(self.info_img, (percent_of_screen_width(62.5), percent_of_screen_height(30)))
