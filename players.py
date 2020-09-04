@@ -54,7 +54,10 @@ class Player:
         # keeps track of how much mana is floating for a player.
         # when a card in the manazone is clicked "tapped" the card charges mana for the player to use.
 
-        self.positions_in_battlezone = zones_class.battlezone.positions_player
+        self.battlezone = zones_class.battlezone
+        self.battlezone_position = (percent_of_screen_width(6.25), percent_of_screen_height(46))
+        self.battlezone_slots = []
+
         self.positions_in_manazone = zones_class.manazone.positions_player
 
         self.graveyard = zones_class.graveyard
@@ -85,6 +88,7 @@ class Player:
 
     def create_zones(self):
         self.shield_slots = self.shield_zone.create_slots(self.shield_zone_position)
+        self.battlezone_slots = self.battlezone.create_slots(self.battlezone_position)
 
     def shuffle_deck(self):
         return random.shuffle(self.deck_list)
@@ -376,7 +380,8 @@ class NpcOpponent(Player):
 
         self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
 
-        self.positions_in_battlezone = zones_class.battlezone.positions_npc
+        self.battlezone_position = (percent_of_screen_width(6.25), percent_of_screen_height(30))
+
         self.positions_in_manazone = zones_class.manazone.positions_npc
 
         self.graveyard_position = (percent_of_screen_width(30), percent_of_screen_height(20))

@@ -14,7 +14,7 @@ class Zones:
     class Battlezone:
         def __init__(self, x_pos):
             # Battle zone
-            # creating postions for cards in players battlezone
+            # creating positions for cards in players battlezone
             self.pos_xy = (x_pos * 5, percent_of_screen_height(46))
 
             self.height = percent_of_screen_height(12.5)
@@ -23,20 +23,16 @@ class Zones:
 
             self.rect = (self.pos_xy[0], self.pos_xy[1], self.width, self.height)
 
-            self.player_y_pos = percent_of_screen_height(46)
-
-            self.positions_player = [(x_pos * x, self.player_y_pos) for x in range(5, 45)]
-
-            # creating positions for cards in npc battlezone
-            self.npc_y_pos = percent_of_screen_height(30)
-            self.positions_npc = [(x_pos * x, self.npc_y_pos) for x in range(5, 45)]
-
         def mouse_is_over(self, pos):
             # Pos is the mouse position or a tuple of (x,y) coordinates.
             if self.pos_xy[0] < pos[0] < self.pos_xy[0] + self.width:
                 if self.pos_xy[1] < pos[1] < self.pos_xy[1] + self.height:
                     return True
             return False
+
+        def create_slots(self, pos_xy):
+            battlezone_slots = [(pos_xy[0] * x, pos_xy[1]) for x in range(5, 45)]
+            return battlezone_slots
 
     class ManaZone:
         def __init__(self, x_pos):

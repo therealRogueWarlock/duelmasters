@@ -4,8 +4,6 @@ from utils import percent_of_screen_width, percent_of_screen_height
 
 
 # might create a class to handle load of sprits.
-
-
 class SpriteLoader:
     def __init__(self):
         self.cards_dict = card_dict
@@ -36,7 +34,7 @@ class SpriteLoader:
         for civilization in self.cards_dict.keys():
             for card_name in self.cards_dict[civilization].keys():
                 card_dict[civilization][card_name]['img'] = pygame.image.load(f"cards_lib/DM_01_base_set/"
-                                                                              f"{civilization}/{card_name}.jpg")
+                                                                              f"{civilization}/{card_name}.png")
 
 
 sprite_loader = SpriteLoader()
