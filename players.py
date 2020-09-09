@@ -14,6 +14,10 @@ class Player:
     def __init__(self):
 
         self.name = "noName"
+        self.in_game = True
+
+        # player input
+        self.mouse_pos = pygame.mouse.get_pos  # mouse
 
         self.saved_deck = ['WrithingBoneGhoul', 'WrithingBoneGhoul', 'WrithingBoneGhoul',
                            'WrithingBoneGhoul', 'DeathSmoke', 'DeathSmoke', 'MieleVizierofLightning',
@@ -22,9 +26,7 @@ class Player:
                            'SenatineJadeTree', 'RubyGrass', 'CreepingPlague', 'BoneSpider',
                            'SuperExplosiveVolcanodon', 'Stonesaur', 'ScarletSkyterror',
                            'RothusTheTraveler', 'SteelSmasher', 'GoldenWingStriker', 'BronzeArmTribe']
-
         # saving the deck two places, will help when resetting.
-
         # creates a list of card objects with the "ACard" class.
         self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
         self.cards_in_hand = []
@@ -35,13 +37,8 @@ class Player:
 
         self.interactive_cards = []
 
-        # player input
-        self.mouse_pos = pygame.mouse.get_pos  # mouse
-
         # if player has a card picked up.
         self.picked_up_card = None
-
-        self.in_game = True
 
         # attributes for a round and the phases
         self.turn_phases = itertools.cycle(["untap", "draw", "charge", "main", "attack", "end", None])
@@ -54,8 +51,13 @@ class Player:
         # keeps track of how much mana is floating for a player.
         # when a card in the manazone is clicked "tapped" the card charges mana for the player to use.
 
-        self.positions_in_battlezone = zones_class.battlezone.positions_player
-        self.positions_in_manazone = zones_class.manazone.positions_player
+        self.battlezone = zones_class.battlezone
+        self.battlezone_position = (percent_of_screen_width(6.25), percent_of_screen_height(46))
+        self.battlezone_slots = []
+
+        self.manazone = zones_class.manazone
+        self.manazone_position = (percent_of_screen_width(6.25), percent_of_screen_height(74))
+        self.manazone_slots = []
 
         self.graveyard = zones_class.graveyard
         self.graveyard_position = (percent_of_screen_width(65), percent_of_screen_height(80))
@@ -84,8 +86,10 @@ class Player:
         self.font_for_mana_info = pygame.font.SysFont('comicsand', 30, True)
 
     def create_zones(self):
+        self.manazone_slots = self.manazone.create_slots(self.manazone_position)
         self.shield_slots = self.shield_zone.create_slots(self.shield_zone_position)
-
+        self.battlezone_slots = self.battlezone.create_slots(self.battlezone_position)
+       
     def shuffle_deck(self):
         return random.shuffle(self.deck_list)
 
@@ -184,12 +188,12 @@ class Player:
 
     def put_card_in_mana_zone(self):
         try:
-            print(f"put {self.picked_up_card.name} into mana zone")
+            print(f"{self.name} put {self.picked_up_card.name} into mana zone")
             self.available_mana[self.picked_up_card.civilization] += 1
             self.picked_up_card.is_picked_up = False
             self.picked_up_card.is_in_mana_zone()
             self.picked_up_card.pos_index = len(self.cards_in_mana_zone)
-            self.picked_up_card.set_position_to(self.positions_in_manazone[self.picked_up_card.pos_index])
+            self.picked_up_card.set_position_to(self.manazone_slots[self.picked_up_card.pos_index])
             self.cards_in_mana_zone.append(self.picked_up_card)
             self.cards_in_hand.remove(self.picked_up_card)
             self.picked_up_card = None
@@ -234,7 +238,7 @@ class Player:
                 self.picked_up_card.is_picked_up = False
                 self.picked_up_card.is_in_battle_zone()
                 self.picked_up_card.pos_index = len(self.cards_in_battle_zone)
-                self.picked_up_card.set_position_to(self.positions_in_battlezone[self.picked_up_card.pos_index])
+                self.picked_up_card.set_position_to(self.battlezone_slots[self.picked_up_card.pos_index])
                 self.cards_in_battle_zone.append(self.picked_up_card)
                 self.cards_in_hand.remove(self.picked_up_card)
                 self.picked_up_card = None
@@ -376,10 +380,11 @@ class NpcOpponent(Player):
 
         self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
 
-        self.positions_in_battlezone = zones_class.battlezone.positions_npc
-        self.positions_in_manazone = zones_class.manazone.positions_npc
+        self.battlezone_position = (percent_of_screen_width(6.25), percent_of_screen_height(30))
 
-        self.graveyard_position = (percent_of_screen_width(30), percent_of_screen_height(20))
+        self.manazone_position = (percent_of_screen_width(6.25), percent_of_screen_height(5.2))
+
+        self.graveyard_position = (percent_of_screen_width(25), percent_of_screen_height(15))
 
         self.shield_zone_position = (percent_of_screen_width(6.25), percent_of_screen_height(20))
 
