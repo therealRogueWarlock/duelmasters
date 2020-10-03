@@ -91,8 +91,11 @@ class BlitGame:
         text = self.font_for_phase_info.render(player.current_phase, 1, (0, 0, 0))
         self.window.blit(text, (percent_of_screen_width(88), percent_of_screen_height(87)))
 
-        text = self.font_for_info.render(npc.current_phase, 1, (0, 0, 0))
+        text = self.font_for_phase_info.render(npc.current_phase, 1, (0, 0, 0))
         self.window.blit(text, (percent_of_screen_width(88), percent_of_screen_height(20)))
+
+        text = self.font_for_phase_info.render(player.current_phase, 1, (0, 0, 0))
+        self.window.blit(text, (percent_of_screen_width(88), percent_of_screen_height(87)))
 
     def blit_buttons(self):
         for key in all_buttons:

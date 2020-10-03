@@ -10,7 +10,7 @@ infos = pygame.display.Info()
 screen_size = (infos.current_w, infos.current_h)
 
 
-class Player:
+class PlayerSetupManager:
     def __init__(self):
 
         self.name = "noName"
@@ -33,31 +33,11 @@ class Player:
         self.cards_in_graveyard = []
         self.cards_in_battle_zone = []
 
-        self.interactive_cards = []
-
-        # player input
-        self.mouse_pos = pygame.mouse.get_pos  # mouse
-
-        # if player has a card picked up.
-        self.picked_up_card = None
-
-        self.in_game = True
-
-        # attributes for a round and the phases
-        self.turn_phases = itertools.cycle(["untap", "draw", "charge", "main", "attack", "end", None])
-        self.current_phase = None
-        self.turn_counter = 0
-
-        # attributes for mana management.
-        self.available_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0, "Water": 0}
-        self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0, "Water": 0}
-        # keeps track of how much mana is floating for a player.
-        # when a card in the manazone is clicked "tapped" the card charges mana for the player to use.
-
         self.battlezone = zones_class.battlezone
         self.battlezone_position = (percent_of_screen_width(6.25), percent_of_screen_height(46))
         self.battlezone_slots = []
 
+        self.manazone = zones_class.manazone
         self.positions_in_manazone = zones_class.manazone.positions_player
 
         self.graveyard = zones_class.graveyard
@@ -70,21 +50,6 @@ class Player:
 
         self.hand_pos_x = (0.465, 0.29)
         self.hand_pos_y = 0.91
-
-        self.target_card = None  # Target an enemy card
-        self.selected_card = None  # select own card.
-
-        # bool for if player charged mana this turn.
-        self.if_charged_mana = False
-
-        self.enemy = None
-
-        # defining fonts for player info.
-        self.font_for_phase_info = pygame.font.SysFont('comicsand', 30, True)
-
-        self.font_for_info = pygame.font.SysFont('comicsand', 30, True)
-
-        self.font_for_mana_info = pygame.font.SysFont('comicsand', 30, True)
 
     def create_zones(self):
         self.shield_slots = self.shield_zone.create_slots(self.shield_zone_position)
@@ -179,6 +144,59 @@ class Player:
         for card in self.cards_in_hand:
             card.set_position_to(positions_in_hand[card.pos_index])
 
+    def setup(self):
+        for card in self.deck_list:
+            card.owner = self
+
+        self.create_zones()
+        self.shuffle_deck()
+        self.draw_shields()
+        self.draw_hand()
+
+    def shuffle_back_cards(self):
+        self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
+        self.cards_in_hand = []
+        self.cards_in_shields = []
+        self.cards_in_mana_zone = []
+        self.cards_in_graveyard = []
+        self.cards_in_battle_zone = []
+
+
+class PlayerCardManager(PlayerSetupManager):
+    def __init__(self):
+        super().__init__()
+
+        # attributes for mana management.
+        self.available_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0, "Water": 0}
+        self.floating_mana = {"Darkness": 0, "Light": 0, "Fire": 0, "Nature": 0, "Water": 0}
+        # keeps track of how much mana is floating for a player.
+        # when a card in the manazone is clicked "tapped" the card charges mana for the player to use.
+
+        # bool for if player charged mana this turn.
+        self.if_charged_mana = False
+
+        # if player has a card picked up.
+        self.picked_up_card = None
+
+        # player input
+        self.mouse_pos = pygame.mouse.get_pos  # mouse
+
+    def manage_cards_in_hand(self):
+        if self.picked_up_card:  # moving around cards in hand.
+            for card in self.cards_in_hand:
+                if not card == self.picked_up_card:
+                    if card.mouse_is_over(self.mouse_pos()):
+                        self.position_cards_in_hand()
+                        switch_index = card.pos_index  # store card index.
+
+                        self.cards_in_hand.remove(card)
+                        self.cards_in_hand.insert(self.picked_up_card.pos_index, card)
+
+                        self.cards_in_hand.remove(self.picked_up_card)
+                        self.cards_in_hand.insert(switch_index, self.picked_up_card)
+
+                        self.position_cards_in_hand()
+
     def float_mana(self, card):
         # check if card is tapped or not.
         if card.is_tapped:
@@ -238,7 +256,7 @@ class Player:
                 self.picked_up_card.is_picked_up = False
                 self.picked_up_card.is_in_battle_zone()
                 self.picked_up_card.pos_index = len(self.cards_in_battle_zone)
-                self.picked_up_card.set_position_to(self.positions_in_battlezone[self.picked_up_card.pos_index])
+                self.picked_up_card.set_position_to(self.battlezone_slots[self.picked_up_card.pos_index])
                 self.cards_in_battle_zone.append(self.picked_up_card)
                 self.cards_in_hand.remove(self.picked_up_card)
                 self.picked_up_card = None
@@ -247,29 +265,15 @@ class Player:
         else:
             print("mana requirements not met.")
 
-    def setup(self):
-        for card in self.deck_list:
-            card.owner = self
 
-        self.create_zones()
-        self.shuffle_deck()
-        self.draw_shields()
-        self.draw_hand()
+class PlayerPhaseManager(PlayerCardManager):
+    def __init__(self):
+        super().__init__()
 
-    def shuffle_back_cards(self):
-        self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
-        self.cards_in_hand = []
-        self.cards_in_shields = []
-        self.cards_in_mana_zone = []
-        self.cards_in_graveyard = []
-        self.cards_in_battle_zone = []
-
-    def get_interactive_cards(self):
-        self.interactive_cards = (
-                self.cards_in_hand + self.cards_in_mana_zone
-                + self.cards_in_battle_zone + self.cards_in_shields)
-        interactive_cards = self.interactive_cards
-        return interactive_cards
+        # attributes for a round and the phases
+        self.turn_phases = itertools.cycle(["untap", "draw", "charge", "main", "attack", "end", None])
+        self.current_phase = None
+        self.turn_counter = 0
 
     def next_phase(self):
         # will automatically go to next phase
@@ -329,21 +333,118 @@ class Player:
         for card in self.cards_in_battle_zone + self.cards_in_mana_zone:
             pass
 
-    def manage_cards_in_hand(self):
-        if self.picked_up_card:  # moving around cards in hand.
-            for card in self.cards_in_hand:
-                if not card == self.picked_up_card:
-                    if card.mouse_is_over(self.mouse_pos()):
-                        self.position_cards_in_hand()
-                        switch_index = card.pos_index  # store card index.
+    def can_attack(self):  # will check if any card in the battlezone can attack.
+        for card in self.cards_in_battle_zone:
+            if not card.summoning_sickness:
+                if not card.is_used:
+                    if not card.is_tapped:
+                        return True
+        return False
 
-                        self.cards_in_hand.remove(card)
-                        self.cards_in_hand.insert(self.picked_up_card.pos_index, card)
 
-                        self.cards_in_hand.remove(self.picked_up_card)
-                        self.cards_in_hand.insert(switch_index, self.picked_up_card)
+class PlayerEventManager(PlayerPhaseManager):
+    def __init__(self):
+        super().__init__()
+        self.enemy = None
+        self.interactive_cards = []
 
-                        self.position_cards_in_hand()
+        self.double_click_clock = pygame.time.Clock()
+        self.wait_time = 500
+
+        self.hover_over_card = None
+        self.target_card = None  # Target an enemy card
+        self.selected_card = None  # select own card.
+
+        self.text_to_font = ""
+
+    def get_interactive_cards(self):
+        self.interactive_cards = (
+                self.cards_in_hand + self.cards_in_mana_zone
+                + self.cards_in_battle_zone + self.cards_in_shields
+                + self.enemy.cards_in_battle_zone + self.enemy.cards_in_shields)
+
+        return self.interactive_cards
+
+    def if_double_click(self):
+        return self.double_click_clock.tick() < self.wait_time
+
+    def mouse_movement(self):
+        active_cards = self.get_interactive_cards() + self.enemy.cards_in_battle_zone + self.enemy.cards_in_shields
+
+        # all cards on battlefield can be hovered over to get info.
+        for card in active_cards + npc.cards_in_mana_zone:
+
+            if card.mouse_is_over(self.mouse_pos()):
+                self.hover_over_card = card
+            else:
+                self.hover_over_card = None
+
+        self.manage_cards_in_hand()
+
+    def left_mouse_down(self):
+        for card in reversed(self.get_interactive_cards()):
+            if not self.picked_up_card:  # if player not already picked up a card.
+                if card.mouse_is_over(self.mouse_pos()):  # player mouse position is over the card.
+                    card.is_clicked()  # the card is now clicked.
+
+                    if self.if_double_click():
+                        if self.current_phase == "attack":
+                            self.attack_phase_events()
+
+                    if card.in_hand:
+                        self.picked_up_card = card
+
+    def left_mouse_up(self):
+        if self.manazone.mouse_is_over(self.mouse_pos()):
+            if self.picked_up_card:
+                if self.current_phase == "charge":
+                    self.charge_phase_events()
+                else:
+                    self.text_to_font = 'you can only charge mana when in charge step.'
+
+        if zones_class.battlezone.mouse_is_over(player.mouse_pos()):
+            if self.picked_up_card:
+                if not self.picked_up_card.in_battle_zone:
+                    if self.current_phase == "main":
+                        self.main_phase_events()
+                    else:
+                        print('you can only play a card when in main step.')
+
+        for card in self.get_interactive_cards():  # if mouse not clicked, no card is picked up.
+            card.is_picked_up = False
+
+        player.picked_up_card = None
+        player.position_cards_in_hand()
+
+    def main_phase_events(self):
+        self.play_card()
+
+    def attack_phase_events(self):
+        if self.hover_over_card in self.cards_in_battle_zone:
+            if not self.hover_over_card.is_tapped:
+                if not self.hover_over_card.summoning_sickness:
+                    self.hover_over_card.is_double_clicked()
+                    self.selected_card = self.hover_over_card
+                    print(self.selected_card.name, self.selected_card.owner)
+
+        if self.hover_over_card in npc.cards_in_battle_zone + npc.cards_in_shields:
+            self.hover_over_card.is_double_clicked()
+            self.target_card = self.hover_over_card
+
+            print(self.target_card.name, self.hover_over_card.owner)
+
+    def charge_phase_events(self):
+        if not self.if_charged_mana:
+            self.put_card_in_mana_zone()
+        else:
+            self.text_to_font = "you can only charge mana once per turn."
+
+
+class Player(PlayerEventManager):  # Player now inherit from all the above classes.
+    def __init__(self):
+        super().__init__()
+
+        self.in_game = True
 
     def info(self):
         return f'picked card: {self.picked_up_card}'
@@ -357,14 +458,6 @@ class Player:
                f'saved deck {self.saved_deck}\n' \
                f'mana {self.available_mana}\n' \
                f'float mana {self.floating_mana}\n'
-
-    def can_attack(self):  # will check if any card in the battlezone can attack.
-        for card in self.cards_in_battle_zone:
-            if not card.summoning_sickness:
-                if not card.is_used:
-                    if not card.is_tapped:
-                        return True
-        return False
 
 
 class NpcOpponent(Player):

@@ -7,13 +7,14 @@ class Main:
     def __init__(self):
         self.clock = pygame.time.Clock()
 
-        # ticks used to slow down npc phases of turn, without stopping blitting and player input.
+        # ticks used to slow down npc phases of turn, without stop blitting and player input.
         self.get_ticks = pygame.time.get_ticks
         self.npc_turn_start_time = 0
         self.npc_turn_time = 0
 
         self.double_click_clock = pygame.time.Clock()
         self.wait_time = 500
+
         self.running = False
         self.tick_rate = 144
 
@@ -38,62 +39,14 @@ class Main:
                 pygame.quit()
                 sys.exit()
 
-            active_cards = player.get_interactive_cards() + npc.cards_in_battle_zone + npc.cards_in_shields
-
-            # all cards on battlefield can be hovered over to get info.
-            for card in active_cards + npc.cards_in_mana_zone:
-                card.mouse_is_over(player.mouse_pos())
-
-            player.manage_cards_in_hand()
+            player.mouse_movement()
 
             # if the mouse is clicked check if mouse is over a card or button.
             if event.type == pygame.MOUSEBUTTONDOWN:
-                for card in reversed(active_cards):
-                    if not player.picked_up_card:
-                        if card.mouse_is_over(player.mouse_pos()):
-                            card.is_clicked()
-
-                            if self.double_click_clock.tick() < self.wait_time:
-                                if player.current_phase == "attack":
-                                    if card in player.cards_in_battle_zone:
-                                        if not card.is_tapped:
-                                            if not card.summoning_sickness:
-                                                card.is_double_clicked()
-                                                player.selected_card = card
-                                                print(player.selected_card.name, card.owner)
-
-                                    if card in npc.cards_in_battle_zone + npc.cards_in_shields:
-                                        card.is_clicked_bool = True
-                                        player.target_card = card
-
-                                        print(player.target_card.name, card.owner)
-
-                            if card.in_hand:
-                                player.picked_up_card = card
+                player.left_mouse_down()
 
             if event.type == pygame.MOUSEBUTTONUP:
-                if zones_class.manazone.mouse_is_over(player.mouse_pos()):
-                    if player.picked_up_card:
-                        if player.current_phase == "charge":
-                            if not player.if_charged_mana:
-                                player.put_card_in_mana_zone()
-                            else:
-                                print("you can only charge mana once per turn.")
-                        else:
-                            print('you can only charge mana when in charge step.')
-
-                if zones_class.battlezone.mouse_is_over(player.mouse_pos()):
-                    if player.picked_up_card:
-                        if not player.picked_up_card.in_battle_zone:
-                            if player.current_phase == "main":
-                                player.play_card()
-                            else:
-                                print('you can only play a card when in main step.')
-
-                for card in active_cards:  # if mouse not clicked, no card is picked up.
-                    card.is_picked_up = False
-                    player.picked_up_card = None
-                    player.position_cards_in_hand()
+                player.left_mouse_up()
 
                 # checking if a button is clicked, and what button.
                 for button_name in all_buttons:
@@ -184,7 +137,6 @@ class Main:
 
     def shutdown(self):
         pass
-
 
 main_class = Main()
 
