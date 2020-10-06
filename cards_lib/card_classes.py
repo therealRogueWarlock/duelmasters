@@ -237,8 +237,6 @@ class ACard:
 
     def is_clicked(self):
 
-        # print(self.info())
-
         if self.in_hand:
             self.is_picked_up = True
 
@@ -255,3 +253,4 @@ class ACard:
         else:
             self.is_selected_bool = False
             self.tap()
+

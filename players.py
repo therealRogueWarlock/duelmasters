@@ -14,6 +14,10 @@ class PlayerSetupManager:
     def __init__(self):
 
         self.name = "noName"
+        self.in_game = True
+
+        # player input
+        self.mouse_pos = pygame.mouse.get_pos  # mouse
 
         self.saved_deck = ['WrithingBoneGhoul', 'WrithingBoneGhoul', 'WrithingBoneGhoul',
                            'WrithingBoneGhoul', 'DeathSmoke', 'DeathSmoke', 'MieleVizierofLightning',
@@ -22,9 +26,7 @@ class PlayerSetupManager:
                            'SenatineJadeTree', 'RubyGrass', 'CreepingPlague', 'BoneSpider',
                            'SuperExplosiveVolcanodon', 'Stonesaur', 'ScarletSkyterror',
                            'RothusTheTraveler', 'SteelSmasher', 'GoldenWingStriker', 'BronzeArmTribe']
-
         # saving the deck two places, will help when resetting.
-
         # creates a list of card objects with the "ACard" class.
         self.deck_list = [card_classes.ACard(name) for name in self.saved_deck]
         self.cards_in_hand = []
@@ -38,23 +40,25 @@ class PlayerSetupManager:
         self.battlezone_slots = []
 
         self.manazone = zones_class.manazone
-        self.positions_in_manazone = zones_class.manazone.positions_player
+        self.manazone_position = (percent_of_screen_width(6.25), percent_of_screen_height(74))
+        self.manazone_slots = []
 
         self.graveyard = zones_class.graveyard
         self.graveyard_position = (percent_of_screen_width(65), percent_of_screen_height(80))
         self.graveyard.set_position(self.graveyard_position)
 
-        self.shield_slots = []
         self.shield_zone = zones_class.shieldzone
         self.shield_zone_position = (percent_of_screen_width(6.25), percent_of_screen_height(60.2))
+        self.shield_slots = []
 
         self.hand_pos_x = (0.465, 0.29)
         self.hand_pos_y = 0.91
 
     def create_zones(self):
+        self.manazone_slots = self.manazone.create_slots(self.manazone_position)
         self.shield_slots = self.shield_zone.create_slots(self.shield_zone_position)
         self.battlezone_slots = self.battlezone.create_slots(self.battlezone_position)
-
+       
     def shuffle_deck(self):
         return random.shuffle(self.deck_list)
 
@@ -206,12 +210,12 @@ class PlayerCardManager(PlayerSetupManager):
 
     def put_card_in_mana_zone(self):
         try:
-            print(f"put {self.picked_up_card.name} into mana zone")
+            print(f"{self.name} put {self.picked_up_card.name} into mana zone")
             self.available_mana[self.picked_up_card.civilization] += 1
             self.picked_up_card.is_picked_up = False
             self.picked_up_card.is_in_mana_zone()
             self.picked_up_card.pos_index = len(self.cards_in_mana_zone)
-            self.picked_up_card.set_position_to(self.positions_in_manazone[self.picked_up_card.pos_index])
+            self.picked_up_card.set_position_to(self.manazone_slots[self.picked_up_card.pos_index])
             self.cards_in_mana_zone.append(self.picked_up_card)
             self.cards_in_hand.remove(self.picked_up_card)
             self.picked_up_card = None
@@ -475,9 +479,9 @@ class NpcOpponent(Player):
 
         self.battlezone_position = (percent_of_screen_width(6.25), percent_of_screen_height(30))
 
-        self.positions_in_manazone = zones_class.manazone.positions_npc
+        self.manazone_position = (percent_of_screen_width(6.25), percent_of_screen_height(5.2))
 
-        self.graveyard_position = (percent_of_screen_width(30), percent_of_screen_height(20))
+        self.graveyard_position = (percent_of_screen_width(25), percent_of_screen_height(15))
 
         self.shield_zone_position = (percent_of_screen_width(6.25), percent_of_screen_height(20))
 
